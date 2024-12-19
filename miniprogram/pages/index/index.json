@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "都邦健康",
-  "usingComponents": {}
+  "usingComponents": {
+    "voice-button": "../../components/voice-button/index",
+    "display-area": "../../components/display-area/index"
+  }
 } 
