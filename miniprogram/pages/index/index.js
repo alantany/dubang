@@ -1,73 +1,57 @@
 // index.js
 Page({
   data: {
-    text: '点击开始录音'
-  },
-
-  tapTest: function() {
-    if (this.data.isRecording) {
-      this.stopRecording()
-    } else {
-      this.startRecording()
+    buttonText: '点击开始录音',
+    currentImage: 'images/display/compressed/tea.jpg',
+    description: '欢迎使用都邦健康，请点击按钮开始语音交互',
+    serviceConfig: {
+      '椅子': {
+        image: 'images/display/compressed/chair.jpg',
+        description: '人体工学椅，让您的腰部更舒适'
+      },
+      '血压': {
+        image: 'images/display/compressed/blood_pressure.jpg',
+        description: '智能血压计，随时监测您的健康'
+      },
+      '旅游': {
+        image: 'images/display/compressed/travel.jpg',
+        description: '特惠旅游套餐，放松身心'
+      },
+      '茶': {
+        image: 'images/display/compressed/tea.jpg',
+        description: '养生茶饮，调理身体'
+      }
     }
   },
 
-  startRecording: function() {
-    const recorderManager = wx.getRecorderManager()
+  handleRecordingStateChange(e) {
+    console.log('录音状态变化:', e.detail)
+    const { isRecording, tempFilePath } = e.detail
     
-    recorderManager.onStart(() => {
-      console.log('录音开始')
-      this.setData({
-        text: '点击结束录音',
-        isRecording: true
-      })
-      wx.showToast({
-        title: '开始录音',
-        icon: 'none'
-      })
+    this.setData({
+      buttonText: isRecording ? '点击结束录音' : '点击开始录音'
     })
 
-    recorderManager.onStop((res) => {
-      console.log('录音结束', res)
-      this.setData({
-        text: '点击开始录音',
-        isRecording: false
-      })
-      wx.showToast({
-        title: '录音结束',
-        icon: 'none'
-      })
+    if (tempFilePath) {
+      // 这里可以添加语音识别逻辑
+      console.log('录音文件路径:', tempFilePath)
       
-      // 播放录音
-      const innerAudioContext = wx.createInnerAudioContext()
-      innerAudioContext.src = res.tempFilePath
-      innerAudioContext.play()
-    })
-
-    recorderManager.onError((res) => {
-      console.error('录音失败:', res)
+      // 模拟识别结果，随机选择一个服务
+      const services = Object.keys(this.data.serviceConfig)
+      const randomService = services[Math.floor(Math.random() * services.length)]
+      const serviceInfo = this.data.serviceConfig[randomService]
+      
       this.setData({
-        text: '点击开始录音',
-        isRecording: false
+        currentImage: serviceInfo.image,
+        description: serviceInfo.description
       })
-      wx.showToast({
-        title: '录音失败',
-        icon: 'error'
-      })
-    })
-
-    // 开始录音
-    recorderManager.start({
-      duration: 60000,
-      sampleRate: 16000,
-      numberOfChannels: 1,
-      encodeBitRate: 96000,
-      format: 'mp3'
-    })
+    }
   },
 
-  stopRecording: function() {
-    const recorderManager = wx.getRecorderManager()
-    recorderManager.stop()
+  handleRecordingError(e) {
+    console.error('录音错误:', e.detail)
+    this.setData({
+      buttonText: '点击开始录音'
+    })
   }
 })

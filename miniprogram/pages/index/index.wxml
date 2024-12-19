@@ -1,32 +1,11 @@
-<!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <!-- 显示区域 -->
-    <view class="display-area">
-      <image 
-        class="display-image" 
-        src="/images/test.png"
-        mode="widthFix"
-        lazy-load="false"
-        show-menu-by-longpress="true"
-        binderror="onImageError"
-        bindload="onImageLoad"
-      ></image>
-      <!-- 说明文字区域 -->
-      <view class="description-area {{showDescription ? 'show' : ''}}">
-        <view class="description-text">{{description}}</view>
-      </view>
-    </view>
-    
-    <!-- 按钮区域 -->
-    <view class="button-area">
-      <view class="voice-button-wrapper">
-        <view class="voice-button-outer">
-          <view class="voice-button" bindtap="startVoiceInput">
-            <view class="voice-icon {{isRecording ? 'recording' : ''}}"></view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-</scroll-view>
+<view class="container">
+  <display-area 
+    currentImage="{{currentImage}}"
+    description="{{description}}"
+  />
+  <voice-button 
+    text="{{buttonText}}"
+    bindrecordingStateChange="handleRecordingStateChange"
+    bindrecordingError="handleRecordingError"
+  />
+</view>
