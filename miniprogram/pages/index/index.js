@@ -1,9 +1,9 @@
 // index.js
 Page({
   data: {
-    buttonText: '点击测试',
+    buttonText: '',
     currentImage: '../../images/display/compressed/tea.jpg',
-    description: '欢迎使用都邦健康，请点击按钮开始语音交互',
+    description: '欢迎使用都邦健康，请按住按钮开始说话',
     serviceConfig: {
       '椅子': {
         image: '../../images/display/compressed/chair.jpg',
@@ -24,11 +24,21 @@ Page({
     }
   },
 
-  handleTap() {
-    console.log('按钮被点击了')
-    wx.showToast({
-      title: '点击成功',
-      icon: 'success'
+  handleTouchStart() {
+    this.setData({
+      buttonText: '请说话...'
     })
+    wx.showToast({
+      title: '请说话...',
+      icon: 'none',
+      duration: 60000
+    })
+  },
+
+  handleTouchEnd() {
+    this.setData({
+      buttonText: ''
+    })
+    wx.hideToast()
   }
 })

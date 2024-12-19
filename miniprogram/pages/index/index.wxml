@@ -3,8 +3,12 @@
     currentImage="{{currentImage}}"
     description="{{description}}"
   />
-  <button 
-    class="test-button"
-    bindtap="handleTap"
-  >{{buttonText}}</button>
+  <view 
+    class="test-button" 
+    bindtouchstart="handleTouchStart"
+    bindtouchend="handleTouchEnd"
+  >
+    <view class="inner-circle"></view>
+    <view class="button-text" wx:if="{{buttonText}}">{{buttonText}}</view>
+  </view>
 </view>
