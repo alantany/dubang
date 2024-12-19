@@ -1,1 +1,13 @@
- 
+1|miniprogram/
+2|├── images/
+3|│   └── display/
+4|│       └── compressed/
+5|│           ├── chair.jpg
+6|│           ├── blood_pressure.jpg
+7|│           ├── travel.jpg
+8|│           └── tea.jpg
+9|└── pages/
+10|    └── index/
+11|        ├── index.js
+12|        ├── index.wxml
+13|        └── index.wxss 
