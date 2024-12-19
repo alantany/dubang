@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <!-- 显示区域 -->
+    <view class="display-area">
+      <image class="display-image" src="/images/default.jpg" mode="aspectFill"></image>
+    </view>
+    
+    <!-- 按钮区域 -->
+    <view class="button-area">
+      <view class="voice-button" bindtap="startVoiceInput">
+        <image class="voice-icon" src="/images/voice.png"></image>
+      </view>
+    </view>
+  </view>
+</scroll-view>
