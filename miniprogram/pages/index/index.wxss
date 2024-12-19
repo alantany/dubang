@@ -7,4 +7,22 @@
   padding: 40rpx 0;
   box-sizing: border-box;
   background: #ffffff;
+}
+
+.test-button {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: #4CAF50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  transition: all 0.3s ease;
+}
+
+.test-button:active {
+  transform: scale(0.95);
+  background: #45a049;
 } 

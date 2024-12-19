@@ -3,9 +3,8 @@
     currentImage="{{currentImage}}"
     description="{{description}}"
   />
-  <voice-button 
-    text="{{buttonText}}"
-    bindrecordingStateChange="handleRecordingStateChange"
-    bindrecordingError="handleRecordingError"
-  />
+  <button 
+    class="test-button"
+    bindtap="handleTap"
+  >{{buttonText}}</button>
 </view>
