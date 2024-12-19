@@ -1,23 +1,15 @@
 <!--index.wxml-->
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
-    <!-- 用于图片压缩的canvas，设置为不可见 -->
-    <canvas canvas-id="compressCanvas" style="width: {{TARGET_WIDTH}}px; height: {{TARGET_HEIGHT}}px; position: absolute; left: -9999px;"></canvas>
-    
-    <!-- 显示区域 -->
-    <view class="display-area">
-      <image 
-        class="display-image" 
-        src="{{currentImage}}" 
-        mode="aspectFit"
-        binderror="onImageError"
-        bindload="onImageLoad"
-      ></image>
-      <!-- 说明文字区域 -->
-      <view class="description-area {{showDescription ? 'show' : ''}}">
-        <view class="description-text">{{description}}</view>
-      </view>
-    </view>
+    <image 
+      class="test-image" 
+      src="/images/test.png"
+      mode="widthFix"
+      lazy-load="false"
+      show-menu-by-longpress="true"
+      binderror="onImageError"
+      bindload="onImageLoad"
+    ></image>
     
     <!-- 按钮区域 -->
     <view class="button-area">
