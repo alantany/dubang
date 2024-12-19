@@ -10,19 +10,31 @@
 }
 
 .test-button {
-  width: 200rpx;
-  height: 200rpx;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
-  background: #4CAF50;
-  color: white;
+  background: linear-gradient(145deg, #45a049, #4CAF50);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28rpx;
   transition: all 0.3s ease;
+  box-shadow: 8rpx 8rpx 16rpx #3d8b40,
+              -8rpx -8rpx 16rpx #59d35f;
+  position: relative;
+  border: 6rpx solid #4CAF50;
+}
+
+.inner-circle {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  box-shadow: inset 4rpx 4rpx 8rpx #d9d9d9,
+              inset -4rpx -4rpx 8rpx #ffffff;
 }
 
 .test-button:active {
   transform: scale(0.95);
-  background: #45a049;
+  box-shadow: 4rpx 4rpx 8rpx #3d8b40,
+              -4rpx -4rpx 8rpx #59d35f;
 } 
