@@ -1,0 +1,12 @@
+<view class="display-container">
+  <image 
+    class="display-image"
+    src="{{currentImage}}"
+    mode="aspectFit"
+    bindload="handleImageLoad"
+    binderror="handleImageError"
+  />
+  <view class="description {{showDescription ? 'show' : ''}}">
+    {{description}}
+  </view>
+</view> 
