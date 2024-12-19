@@ -25,14 +25,68 @@ Page({
   },
 
   onLoad() {
-    // 初始化录音管理器
-    this.recorderManager = wx.getRecorderManager()
-    
+    // 初始化语音识别管理器
+    this.initVoiceRecognition()
+  },
+
+  initVoiceRecognition() {
+    // 获取全局唯一的录音管理器
+    this.manager = wx.getRecorderManager()
+
+    // 监听录音开始事件
+    this.manager.onStart(() => {
+      console.log('录音开始')
+    })
+
     // 监听录音结束事件
-    this.recorderManager.onStop((res) => {
+    this.manager.onStop((res) => {
       console.log('录音结束', res)
-      // 开始识别语音
-      this.recognizeSpeech(res.tempFilePath)
+      const { tempFilePath } = res
+      
+      // 显示加载提示
+      wx.showLoading({
+        title: '正在识别...'
+      })
+
+      // 调用微信语音识别接口
+      wx.getFileSystemManager().readFile({
+        filePath: tempFilePath,
+        success: (res) => {
+          const buffer = res.data
+          wx.cloud.callFunction({
+            name: 'speechToText',
+            data: {
+              audioData: buffer
+            },
+            success: (res) => {
+              wx.hideLoading()
+              if (res.result && res.result.text) {
+                console.log('识别结果:', res.result.text)
+                this.setData({
+                  description: `识别结果: ${res.result.text}`
+                })
+                // TODO: 这里可以添加发送给大模型的逻辑
+              } else {
+                this.handleRecognitionError('识别结果为空')
+              }
+            },
+            fail: (err) => {
+              console.error('语音识别失败:', err)
+              this.handleRecognitionError('语音识别失败')
+            }
+          })
+        },
+        fail: (err) => {
+          console.error('读取录音文件失败:', err)
+          this.handleRecognitionError('读取录音失败')
+        }
+      })
+    })
+
+    // 监听录音错误事件
+    this.manager.onError((res) => {
+      console.error('录音错误:', res)
+      this.handleRecognitionError('录音出错')
     })
   },
 
@@ -47,7 +101,7 @@ Page({
     })
 
     // 开始录音
-    this.recorderManager.start({
+    this.manager.start({
       duration: 60000,
       sampleRate: 16000,
       numberOfChannels: 1,
@@ -62,42 +116,7 @@ Page({
     })
     wx.hideToast()
     // 停止录音
-    this.recorderManager.stop()
-  },
-
-  recognizeSpeech(tempFilePath) {
-    // 显示加载提示
-    wx.showLoading({
-      title: '正在识别...',
-    })
-
-    // 调用微信语音识别接口
-    wx.uploadFile({
-      url: 'https://YOUR_SERVER_URL/speech-to-text', // 这里需要替换为实际的服务器地址
-      filePath: tempFilePath,
-      name: 'audio',
-      success: (res) => {
-        wx.hideLoading()
-        try {
-          const result = JSON.parse(res.data)
-          if (result.text) {
-            console.log('识别结果:', result.text)
-            this.setData({
-              description: `识别结果: ${result.text}`
-            })
-            // TODO: 这里可以添加发送给大模型的逻辑
-          } else {
-            this.handleRecognitionError('识别结果为空')
-          }
-        } catch (e) {
-          this.handleRecognitionError('解析识别结果失败')
-        }
-      },
-      fail: (err) => {
-        console.error('语音识别失败:', err)
-        this.handleRecognitionError('语音识别失败')
-      }
-    })
+    this.manager.stop()
   },
 
   handleRecognitionError(message) {
