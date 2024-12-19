@@ -6,7 +6,13 @@
     
     <!-- 显示区域 -->
     <view class="display-area">
-      <image class="display-image" src="{{currentImage}}" mode="aspectFit"></image>
+      <image 
+        class="display-image" 
+        src="{{currentImage}}" 
+        mode="aspectFit"
+        binderror="onImageError"
+        bindload="onImageLoad"
+      ></image>
       <!-- 说明文字区域 -->
       <view class="description-area {{showDescription ? 'show' : ''}}">
         <view class="description-text">{{description}}</view>
