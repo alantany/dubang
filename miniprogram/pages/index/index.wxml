@@ -1,9 +1,16 @@
 <!--index.wxml-->
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
+    <!-- 用于图片压缩的canvas，设置为不可见 -->
+    <canvas canvas-id="compressCanvas" style="width: {{TARGET_WIDTH}}px; height: {{TARGET_HEIGHT}}px; position: absolute; left: -9999px;"></canvas>
+    
     <!-- 显示区域 -->
     <view class="display-area">
-      <image class="display-image" src="/images/display/茶.png" mode="aspectFill"></image>
+      <image class="display-image" src="{{currentImage}}" mode="aspectFit"></image>
+      <!-- 说明文字区域 -->
+      <view class="description-area {{showDescription ? 'show' : ''}}">
+        <view class="description-text">{{description}}</view>
+      </view>
     </view>
     
     <!-- 按钮区域 -->
@@ -11,7 +18,7 @@
       <view class="voice-button-wrapper">
         <view class="voice-button-outer">
           <view class="voice-button" bindtap="startVoiceInput">
-            <view class="voice-icon"></view>
+            <view class="voice-icon {{isRecording ? 'recording' : ''}}"></view>
           </view>
         </view>
       </view>
