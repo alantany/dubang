@@ -3,13 +3,17 @@
   <view class="container">
     <!-- 显示区域 -->
     <view class="display-area">
-      <image class="display-image" src="/images/default.jpg" mode="aspectFill"></image>
+      <image class="display-image" src="/images/display/茶.png" mode="aspectFill"></image>
     </view>
     
     <!-- 按钮区域 -->
     <view class="button-area">
-      <view class="voice-button" bindtap="startVoiceInput">
-        <image class="voice-icon" src="/images/voice.png"></image>
+      <view class="voice-button-wrapper">
+        <view class="voice-button-outer">
+          <view class="voice-button" bindtap="startVoiceInput">
+            <view class="voice-icon"></view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
