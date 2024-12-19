@@ -1,24 +1,24 @@
 // 服务内容配置
 const serviceConfig = {
   '椅子': {
-    image: '../../images/display/compressed/chair.jpg',
+    image: '/images/display/compressed/chair.jpg',
     description: '适合老年人的椅子不仅能提供舒适的坐姿，还能帮助保持良好的脊椎健康。建议选择带扶手、靠背适中、坐垫柔软的椅子，这样可以减轻腰部压力，方便起身，让您在休息时更加舒适。'
   },
   '血压': {
-    image: '../../images/display/compressed/blood_pressure.jpg',
+    image: '/images/display/compressed/blood_pressure.jpg',
     description: '定期测量血压对老年人的健康管理非常重要。建议每天固定时间测量，保持记录，这样可以及时发现问题，帮助医生更好地了解您的健康状况。'
   },
   '旅游': {
-    image: '../../images/display/compressed/travel.jpg',
+    image: '/images/display/compressed/travel.jpg',
     description: '适度旅游不仅能让心情愉悦，还能增进身体健康。建议选择节奏较慢的旅游方式，注意劳逸结合，享受旅途中的美景和快乐时光。'
   },
   '茶': {
-    image: '../../images/display/compressed/tea.jpg',
+    image: '/images/display/compressed/tea.jpg',
     description: '喝茶不仅是一种享受，还能帮助提神醒脑、养生保健。建议选择适合自己的茶类，注意不要空腹饮茶，最好在饭后半小时饮用。'
   }
 }
 
-const DEFAULT_IMAGE = '../../images/display/compressed/tea.jpg'
+const DEFAULT_IMAGE = '/images/display/compressed/tea.jpg'
 
 Page({
   data: {
