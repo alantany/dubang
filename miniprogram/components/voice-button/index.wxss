@@ -1,0 +1,17 @@
+.voice-button {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: #4CAF50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  transition: all 0.3s ease;
+}
+
+.voice-button.recording {
+  background: #f44336;
+  transform: scale(1.1);
+} 

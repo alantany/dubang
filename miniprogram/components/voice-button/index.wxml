@@ -1,0 +1,6 @@
+<button 
+  class="voice-button {{isRecording ? 'recording' : ''}}" 
+  bindtap="handleTap"
+>
+  {{text}}
+</button> 
