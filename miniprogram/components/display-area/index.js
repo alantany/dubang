@@ -1,6 +1,6 @@
 Component({
   properties: {
-    currentVideo: {
+    videoPath: {
       type: String,
       value: ''
     },
@@ -17,29 +17,61 @@ Component({
   },
 
   methods: {
-    handleVideoLoaded(e) {
-      console.log('视频元数据加载成功:', e)
+    handleVideoError(e) {
+      console.error('视频错误:', e.detail)
+      const { errMsg } = e.detail
       this.setData({
+        error: true,
+        errorMsg: errMsg
+      })
+      
+      // 通知页面发生错误
+      this.triggerEvent('videoError', {
+        error: errMsg
+      })
+    },
+
+    handleVideoPlay() {
+      console.log('视频开始播放')
+      this.setData({
+        isPlaying: true,
         error: false,
         errorMsg: ''
       })
     },
 
-    handleVideoError(e) {
-      console.error('视频加载错误:', e)
-      const errorMsg = e.detail.errMsg || '未知错误'
+    handleVideoPause() {
+      console.log('视频暂停')
       this.setData({
-        error: true,
-        errorMsg: errorMsg
+        isPlaying: false
       })
-      wx.showToast({
-        title: '视频加载失败',
-        icon: 'error'
+    },
+
+    handleVideoEnded() {
+      console.log('视频播放结束')
+      this.setData({
+        isPlaying: false
       })
-      this.triggerEvent('error', {
-        error: errorMsg,
-        videoPath: this.data.currentVideo
-      })
+    }
+  },
+
+  lifetimes: {
+    attached() {
+      // 组件创建时的初始化逻辑
+      console.log('视频组件已创建，路径:', this.properties.videoPath)
+    },
+
+    detached() {
+      // 组件销毁时的清理逻辑
+    }
+  },
+
+  pageLifetimes: {
+    show() {
+      // 页面显示时的逻辑
+    },
+    hide() {
+      // 页面隐藏时的逻辑
     }
   }
 }) 

@@ -1,15 +1,23 @@
-<view class="display-area">
+<view class="container">
   <video 
-    class="display-video"
-    src="{{currentVideo}}"
-    controls
-    show-center-play-btn
-    show-play-btn
+    class="video" 
+    src="{{videoPath}}"
+    autoplay="{{false}}"
+    loop="{{true}}"
+    controls="{{true}}"
+    show-center-play-btn="{{true}}"
+    show-play-btn="{{true}}"
+    enable-progress-gesture="{{true}}"
     object-fit="contain"
     binderror="handleVideoError"
-    bindloadedmetadata="handleVideoLoaded"
+    bindplay="handleVideoPlay"
+    bindpause="handleVideoPause"
+    bindended="handleVideoEnded"
+    initial-time="0"
+    direction="0"
+    show-mute-btn="{{true}}"
+    title="健康服务视频"
   ></video>
-  <view class="video-path">当前视频: {{currentVideo}}</view>
-  <view class="error-info" wx:if="{{error}}">错误信息: {{errorMsg}}</view>
   <view class="description">{{description}}</view>
+  <view class="debug-info">当前视频路径: {{videoPath}}</view>
 </view> 

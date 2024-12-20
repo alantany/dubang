@@ -1,26 +1,30 @@
 <view class="container">
   <display-area 
-    currentVideo="{{currentVideo}}"
+    videoPath="{{currentVideo}}" 
     description="{{description}}"
-  />
+    bind:videoError="handleVideoError"
+  ></display-area>
+  
   <view class="input-area">
     <input 
-      class="text-input" 
-      placeholder="请输入您想说的话" 
+      class="input" 
+      placeholder="请输入您想了解的内容" 
       value="{{inputText}}"
       bindinput="handleInput"
     />
     <button 
-      class="send-button" 
+      class="send-btn" 
       bindtap="handleSend"
     >发送</button>
   </view>
-  <view 
-    class="test-button" 
-    bindtouchstart="handleTouchStart"
-    bindtouchend="handleTouchEnd"
-  >
-    <view class="inner-circle"></view>
-    <view class="button-text" wx:if="{{buttonText}}">{{buttonText}}</view>
+
+  <view class="voice-btn-area">
+    <button 
+      class="voice-btn"
+      bindtouchstart="handleTouchStart"
+      bindtouchend="handleTouchEnd"
+    >
+      {{buttonText || '按住说话'}}
+    </button>
   </view>
 </view>
