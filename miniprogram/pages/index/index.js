@@ -38,7 +38,7 @@ Page({
       console.log('录音开始')
     })
 
-    // 监听录音结束事件
+    // 监听��音结束事件
     this.manager.onStop((res) => {
       console.log('录音结束', res)
       const { tempFilePath } = res
@@ -48,37 +48,25 @@ Page({
         title: '正在识别...'
       })
 
-      // 调用微信语音识别接口
-      wx.getFileSystemManager().readFile({
-        filePath: tempFilePath,
+      // 使用微信原生语音识别接口
+      const plugin = requirePlugin('WechatSI')
+      plugin.recognize({
+        audioFilePath: tempFilePath,
         success: (res) => {
-          const buffer = res.data
-          wx.cloud.callFunction({
-            name: 'speechToText',
-            data: {
-              audioData: buffer
-            },
-            success: (res) => {
-              wx.hideLoading()
-              if (res.result && res.result.text) {
-                console.log('识别结果:', res.result.text)
-                this.setData({
-                  description: `识别结果: ${res.result.text}`
-                })
-                // TODO: 这里可以添加发送给大模型的逻辑
-              } else {
-                this.handleRecognitionError('识别结果为空')
-              }
-            },
-            fail: (err) => {
-              console.error('语音识别失败:', err)
-              this.handleRecognitionError('语音识别失败')
-            }
-          })
+          wx.hideLoading()
+          if (res.result) {
+            console.log('识别结果:', res.result)
+            this.setData({
+              description: `识别结果: ${res.result}`
+            })
+            // TODO: 这里可以添加发送给大模型的逻辑
+          } else {
+            this.handleRecognitionError('识别结果为空')
+          }
         },
         fail: (err) => {
-          console.error('读取录音文件失败:', err)
-          this.handleRecognitionError('读取录音失败')
+          console.error('语音识别失败:', err)
+          this.handleRecognitionError('语音识别失败')
         }
       })
     })
