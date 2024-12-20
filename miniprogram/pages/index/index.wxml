@@ -16,10 +16,16 @@
       class="send-button" 
       bindtap="handleSend"
     >发送</button>
-    <button 
-      class="voice-button" 
+  </view>
+
+  <view class="voice-button-area">
+    <view 
+      class="test-button"
       bindtouchstart="handleTouchStart" 
       bindtouchend="handleTouchEnd"
-    >按住说话</button>
+    >
+      <view class="inner-circle"></view>
+      <text class="button-text">{{buttonText || '按住说话'}}</text>
+    </view>
   </view>
 </view>

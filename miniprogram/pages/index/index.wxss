@@ -12,7 +12,7 @@
   background-color: #fff;
   border-top: 1rpx solid #eee;
   position: fixed;
-  bottom: 0;
+  bottom: 100rpx;
   left: 0;
   right: 0;
   gap: 20rpx;
@@ -40,16 +40,14 @@
   padding: 0;
 }
 
-.voice-button {
-  width: 200rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  border-radius: 40rpx;
-  background-color: #1aad19;
-  color: #fff;
-  font-size: 28rpx;
-  padding: 0;
+.voice-button-area {
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20rpx;
 }
 
 .test-button {
@@ -74,7 +72,7 @@
 }
 
 .test-button:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
 }
 
 .button-text {
