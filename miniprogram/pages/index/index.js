@@ -5,6 +5,7 @@ Page({
     inputText: '',
     currentImage: '../../images/display/compressed/tea.jpg',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
+    followUpQuestions: [],
     serviceConfig: {
       '椅子': {
         image: '../../images/display/compressed/chair.jpg',
@@ -80,7 +81,8 @@ Page({
     }
 
     this.setData({
-      description: '正在思考中...'
+      description: '正在思考中...',
+      followUpQuestions: []
     })
 
     wx.request({
@@ -104,11 +106,16 @@ Page({
         console.log('API响应:', res.data)
         if (res.data && res.data.code === 0 && res.data.messages) {
           const answer = res.data.messages.find(msg => msg.type === 'answer')
+          const followUps = res.data.messages
+            .filter(msg => msg.type === 'follow_up')
+            .map(msg => msg.content)
+
           if (answer) {
             this.setData({
               description: answer.content,
               inputText: '',
-              conversation_id: res.data.conversation_id
+              conversation_id: res.data.conversation_id,
+              followUpQuestions: followUps
             })
           } else {
             this.handleError('未找到回答内容')
@@ -121,6 +128,15 @@ Page({
         console.error('请求失败:', err)
         this.handleError('网络请求失败')
       }
+    })
+  },
+
+  handleFollowUpTap(e) {
+    const { question } = e.currentTarget.dataset
+    this.setData({
+      inputText: question
+    }, () => {
+      this.handleSend()
     })
   },
 

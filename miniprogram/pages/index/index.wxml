@@ -3,6 +3,18 @@
     currentImage="{{currentImage}}"
     description="{{description}}"
   />
+  <view class="follow-up-area" wx:if="{{followUpQuestions.length > 0}}">
+    <view class="follow-up-title">您可能想问：</view>
+    <view 
+      class="follow-up-item" 
+      wx:for="{{followUpQuestions}}" 
+      wx:key="index"
+      bindtap="handleFollowUpTap"
+      data-question="{{item}}"
+    >
+      {{item}}
+    </view>
+  </view>
   <view class="input-area">
     <input 
       class="text-input" 
