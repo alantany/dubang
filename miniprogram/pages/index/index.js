@@ -3,7 +3,7 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: '/videos/tea.mp4',
+    currentVideo: '/videos/tea_converted.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
@@ -19,7 +19,7 @@ Page({
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: '/videos/tea.mp4',
+        video: '/videos/tea_converted.mp4',
         description: '养生茶饮，调理身体'
       }
     },
@@ -112,7 +112,7 @@ Page({
         if (res.data && res.data.code === 0 && res.data.messages) {
           const answer = res.data.messages.find(msg => msg.type === 'answer')
           if (answer) {
-            // ��回答中提取关键词
+            // 回答中提取关键词
             const keyword = answer.content.trim()
             console.log('识别到的关键词:', keyword)
 
