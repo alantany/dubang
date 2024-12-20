@@ -3,23 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: '/videos/tea_converted_720p.mp4',
+    currentVideo: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/4fc4d0ca243791576314962151/v.f100240.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        video: '/videos/chair_converted_720p.mp4',
+        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/4fc4d0ca243791576314962151/v.f100240.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: '/videos/blood_pressure_converted_720p.mp4',
+        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/a4c3f1d4243791576315110747/v.f100240.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: '/videos/travel_converted_720p.mp4',
+        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/a4c3f1d3243791576315110746/v.f100240.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: '/videos/tea_converted_720p.mp4',
+        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/a4c3f1d5243791576315110748/v.f100240.mp4',
         description: '养生茶饮，调理身体'
       }
     },
