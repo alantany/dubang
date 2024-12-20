@@ -3,23 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72.mp4',
+    currentVideo: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/527133db-a6f3-11ee-b1b3-9a72758c647e/527133db-a6f3-11ee-b1b3-9a72758c647e.mp4',
+        video: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/57b4b0e7-a6f3-11ee-aaab-7671ab0cdb72/57b4b0e7-a6f3-11ee-aaab-7671ab0cdb72.mp4',
+        video: 'https://media.w3.org/2010/05/bunny/trailer.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/5d3c8f73-a6f3-11ee-8597-7671ab0cdb72/5d3c8f73-a6f3-11ee-8597-7671ab0cdb72.mp4',
+        video: 'https://media.w3.org/2010/05/video/movie_300.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72.mp4',
+        video: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
         description: '养生茶饮，调理身体'
       }
     },
