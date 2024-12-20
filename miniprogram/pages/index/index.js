@@ -2,8 +2,9 @@
 Page({
   data: {
     buttonText: '',
+    inputText: '',
     currentImage: '../../images/display/compressed/tea.jpg',
-    description: '欢迎使用都邦健康，请按住按钮开始说话',
+    description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
         image: '../../images/display/compressed/chair.jpg',
@@ -71,6 +72,60 @@ Page({
     this.innerAudioContext.onError((res) => {
       console.error('播放错误:', res)
       this.handleError('播放失败')
+    })
+  },
+
+  handleInput(e) {
+    this.setData({
+      inputText: e.detail.value
+    })
+  },
+
+  handleSend() {
+    if (!this.data.inputText.trim()) {
+      this.handleError('请输入内容')
+      return
+    }
+
+    this.setData({
+      description: '正在思考中...'
+    })
+
+    wx.request({
+      url: 'https://api.coze.cn/v3/chat',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer pat_150CPnGfyraFtlFJ76XbzILiLGzoLfxVqPCDg0yGvYvP185B9A3nUjR4dRMuI7CG',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        bot_id: '7450286572244762675',
+        user_id: '123123',
+        stream: false,
+        auto_save_history: true,
+        additional_messages: [
+          {
+            role: 'user',
+            content: this.data.inputText,
+            content_type: 'text'
+          }
+        ]
+      },
+      success: (res) => {
+        console.log('大模型响应:', res.data)
+        if (res.data && res.data.reply) {
+          this.setData({
+            description: res.data.reply,
+            inputText: ''
+          })
+        } else {
+          this.handleError('响应格式错误')
+        }
+      },
+      fail: (err) => {
+        console.error('请求失败:', err)
+        this.handleError('网络请求失败')
+      }
     })
   },
 
