@@ -22,26 +22,22 @@ Page({
         image: '../../images/display/compressed/tea.jpg',
         description: '养生茶饮，调理身体'
       }
-    }
+    },
+    conversation_id: '123123'
   },
 
   onLoad() {
-    // 初始化录音管理器
     this.initRecorder()
   },
 
   initRecorder() {
-    // 获取全局唯一的录音管理器
     this.recorderManager = wx.getRecorderManager()
-    // 创建内部 audio 上下文
     this.innerAudioContext = wx.createInnerAudioContext()
 
-    // 监听录音开始事件
     this.recorderManager.onStart(() => {
       console.log('录音开始')
     })
 
-    // 监听录音结束事件
     this.recorderManager.onStop((res) => {
       console.log('录音结束', res)
       const { tempFilePath } = res
@@ -50,25 +46,21 @@ Page({
         description: '录音完成，正在播放...'
       })
 
-      // 播放录音
       this.innerAudioContext.src = tempFilePath
       this.innerAudioContext.play()
     })
 
-    // 监听录音错误事件
     this.recorderManager.onError((res) => {
       console.error('录音错误:', res)
       this.handleError('录音出错')
     })
 
-    // 监听播放结束
     this.innerAudioContext.onEnded(() => {
       this.setData({
         description: '录音播放完成'
       })
     })
 
-    // 监听播放错误
     this.innerAudioContext.onError((res) => {
       console.error('播放错误:', res)
       this.handleError('播放失败')
@@ -91,31 +83,36 @@ Page({
       description: '正在思考中...'
     })
 
-    // 发送消息
     wx.request({
-      url: 'https://api.coze.cn/v3/chat/completions',
+      url: 'https://api.coze.cn/open_api/v2/chat',
       method: 'POST',
       header: {
         'Authorization': 'Bearer pat_150CPnGfyraFtlFJ76XbzILiLGzoLfxVqPCDg0yGvYvP185B9A3nUjR4dRMuI7CG',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Host': 'api.coze.cn',
+        'Connection': 'keep-alive'
       },
       data: {
+        conversation_id: this.data.conversation_id,
         bot_id: '7450286572244762675',
-        messages: [
-          {
-            role: 'user',
-            content: this.data.inputText
-          }
-        ]
+        user: 'miniprogram_user',
+        query: this.data.inputText,
+        stream: false
       },
       success: (res) => {
         console.log('API响应:', res.data)
-        if (res.data && res.data.choices && res.data.choices[0]) {
-          const reply = res.data.choices[0].message.content
-          this.setData({
-            description: reply,
-            inputText: ''
-          })
+        if (res.data && res.data.code === 0 && res.data.messages) {
+          const answer = res.data.messages.find(msg => msg.type === 'answer')
+          if (answer) {
+            this.setData({
+              description: answer.content,
+              inputText: '',
+              conversation_id: res.data.conversation_id
+            })
+          } else {
+            this.handleError('未找到回答内容')
+          }
         } else {
           this.handleError('响应格式错误')
         }
@@ -137,7 +134,6 @@ Page({
       duration: 60000
     })
 
-    // 开始录音
     this.recorderManager.start({
       duration: 60000,
       sampleRate: 16000,
@@ -152,7 +148,6 @@ Page({
       buttonText: ''
     })
     wx.hideToast()
-    // 停止录音
     this.recorderManager.stop()
   },
 
