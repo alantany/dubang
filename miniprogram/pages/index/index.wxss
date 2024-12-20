@@ -9,31 +9,6 @@
   background: #ffffff;
 }
 
-.follow-up-area {
-  width: 90%;
-  margin-bottom: 20rpx;
-}
-
-.follow-up-title {
-  font-size: 28rpx;
-  color: #666;
-  margin-bottom: 16rpx;
-}
-
-.follow-up-item {
-  font-size: 28rpx;
-  color: #4CD964;
-  padding: 16rpx 24rpx;
-  background: #f5f5f5;
-  border-radius: 8rpx;
-  margin-bottom: 12rpx;
-  transition: all 0.3s ease;
-}
-
-.follow-up-item:active {
-  background: #e5e5e5;
-}
-
 .input-area {
   width: 90%;
   display: flex;
