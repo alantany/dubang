@@ -5,7 +5,6 @@ Page({
     inputText: '',
     currentImage: '../../images/display/compressed/tea.jpg',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
-    followUpQuestions: [],
     serviceConfig: {
       '椅子': {
         image: '../../images/display/compressed/chair.jpg',
@@ -44,11 +43,17 @@ Page({
       const { tempFilePath } = res
       
       this.setData({
-        description: '录音完成，正在播放...'
+        description: '录音完成，正在识别...'
       })
 
+      // 播放录音
       this.innerAudioContext.src = tempFilePath
       this.innerAudioContext.play()
+
+      // 这里可以添加语音转文字的功能
+      // 目前先使用默认文本进行测试
+      const testQuery = "我想了解一下血压计"
+      this.handleQuery(testQuery)
     })
 
     this.recorderManager.onError((res) => {
@@ -58,7 +63,7 @@ Page({
 
     this.innerAudioContext.onEnded(() => {
       this.setData({
-        description: '录音播放完成'
+        description: '正在分析您的需求...'
       })
     })
 
@@ -74,15 +79,9 @@ Page({
     })
   },
 
-  handleSend() {
-    if (!this.data.inputText.trim()) {
-      this.handleError('请输入内容')
-      return
-    }
-
+  handleQuery(query) {
     this.setData({
-      description: '正在思考中...',
-      followUpQuestions: []
+      description: '正在思考中...'
     })
 
     wx.request({
@@ -99,24 +98,35 @@ Page({
         conversation_id: this.data.conversation_id,
         bot_id: '7450286572244762675',
         user: 'miniprogram_user',
-        query: this.data.inputText,
+        query: `请分析这句话的意图，只返回一个关键词（椅子/血压/旅游/茶）："${query}"`,
         stream: false
       },
       success: (res) => {
         console.log('API响应:', res.data)
         if (res.data && res.data.code === 0 && res.data.messages) {
           const answer = res.data.messages.find(msg => msg.type === 'answer')
-          const followUps = res.data.messages
-            .filter(msg => msg.type === 'follow_up')
-            .map(msg => msg.content)
-
           if (answer) {
-            this.setData({
-              description: answer.content,
-              inputText: '',
-              conversation_id: res.data.conversation_id,
-              followUpQuestions: followUps
-            })
+            // 从回答中提取关键词
+            const keyword = answer.content.trim()
+            console.log('识别到的关键词:', keyword)
+
+            // 查找对应的服务配置
+            const service = this.data.serviceConfig[keyword]
+            if (service) {
+              this.setData({
+                currentImage: service.image,
+                description: service.description,
+                inputText: '',
+                conversation_id: res.data.conversation_id
+              })
+            } else {
+              // 如果没有找到对应的服务，保持默认显示
+              this.setData({
+                description: '抱歉，我没有找到相关的服务信息',
+                inputText: '',
+                conversation_id: res.data.conversation_id
+              })
+            }
           } else {
             this.handleError('未找到回答内容')
           }
@@ -131,13 +141,13 @@ Page({
     })
   },
 
-  handleFollowUpTap(e) {
-    const { question } = e.currentTarget.dataset
-    this.setData({
-      inputText: question
-    }, () => {
-      this.handleSend()
-    })
+  handleSend() {
+    if (!this.data.inputText.trim()) {
+      this.handleError('请输入内容')
+      return
+    }
+
+    this.handleQuery(this.data.inputText)
   },
 
   handleTouchStart() {
