@@ -12,5 +12,17 @@
   "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
     "weui": true
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "录音功能用于语音输入"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
   }
 }

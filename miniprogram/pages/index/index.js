@@ -3,23 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/4fc4d0ca243791576314962151/v.f100240.mp4',
+    currentVideo: 'https://stream7.iqilu.com/10339/article/202002/18/2fca1c77730e54c7b500573c2437003f.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/4fc4d0ca243791576314962151/v.f100240.mp4',
+        video: 'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218093206z8V1JuPlpe.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/a4c3f1d4243791576315110747/v.f100240.mp4',
+        video: 'https://stream7.iqilu.com/10339/article/202002/18/2fca1c77730e54c7b500573c2437003f.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/a4c3f1d3243791576315110746/v.f100240.mp4',
+        video: 'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: 'http://1500004558.vod2.myqcloud.com/6c993b0bvodtranscq1500004558/a4c3f1d5243791576315110748/v.f100240.mp4',
+        video: 'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218025702PSiVKDB5ap.mp4',
         description: '养生茶饮，调理身体'
       }
     },
