@@ -3,24 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: '',
-    videoId: 'm33655tunvk',
+    currentVideo: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        videoId: 'i35128ouny8',
+        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/527133db-a6f3-11ee-b1b3-9a72758c647e/527133db-a6f3-11ee-b1b3-9a72758c647e.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        videoId: 'j3564unxnwi',
+        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/57b4b0e7-a6f3-11ee-aaab-7671ab0cdb72/57b4b0e7-a6f3-11ee-aaab-7671ab0cdb72.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        videoId: 'a0034xqzian',
+        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/5d3c8f73-a6f3-11ee-8597-7671ab0cdb72/5d3c8f73-a6f3-11ee-8597-7671ab0cdb72.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        videoId: 'm33655tunvk',
+        video: 'https://outin-3f4dd31f68c311eebe9900163e1c94a4.oss-cn-shanghai.aliyuncs.com/sv/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72/4cce2dc0-a6f3-11ee-8597-7671ab0cdb72.mp4',
         description: '养生茶饮，调理身体'
       }
     },
@@ -32,20 +31,15 @@ Page({
     const pages = getCurrentPages()
     const currentPage = pages[pages.length - 1]
     console.log('当前页面路径:', currentPage.route)
-    
-    // 加载初始视频
-    this.loadVideo(this.data.videoId)
+    console.log('当前视频:', this.data.currentVideo)
     
     this.initRecorder()
   },
 
-  loadVideo(videoId) {
-    console.log('加载视频:', videoId)
-    // 使用腾讯视频的播放链接
-    const playUrl = `https://v.qq.com/x/page/${videoId}.html`
+  loadVideo(video) {
+    console.log('加载视频:', video)
     this.setData({
-      currentVideo: playUrl,
-      videoId: videoId
+      currentVideo: video
     })
   },
 
@@ -141,7 +135,7 @@ Page({
             const service = this.data.serviceConfig[keyword]
             if (service) {
               // 加载对应的视频
-              this.loadVideo(service.videoId)
+              this.loadVideo(service.video)
               this.setData({
                 description: service.description,
                 inputText: '',
