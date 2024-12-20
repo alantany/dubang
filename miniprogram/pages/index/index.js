@@ -3,23 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: '../../videos/tea.mp4',
+    currentVideo: '/videos/tea.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        video: '../../videos/chair.mp4',
+        video: '/videos/chair.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: '../../videos/blood_pressure.mp4',
+        video: '/videos/blood_pressure.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: '../../videos/travel.mp4',
+        video: '/videos/travel.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: '../../videos/tea.mp4',
+        video: '/videos/tea.mp4',
         description: '养生茶饮，调理身体'
       }
     },
@@ -32,17 +32,6 @@ Page({
     const currentPage = pages[pages.length - 1]
     console.log('当前页面路径:', currentPage.route)
     console.log('视频路径:', this.data.currentVideo)
-    
-    // 检查视频文件是否存在
-    wx.getFileSystemManager().access({
-      path: this.data.currentVideo,
-      success: () => {
-        console.log('视频文件存在')
-      },
-      fail: (err) => {
-        console.error('视频文件不存在:', err)
-      }
-    })
     
     this.initRecorder()
   },
@@ -67,7 +56,7 @@ Page({
       this.innerAudioContext.src = tempFilePath
       this.innerAudioContext.play()
 
-      // 这里可以添加语音转文字��功能
+      // 这里可以添加语音转文字功能
       // 目前先使用默认文本进行测试
       const testQuery = "我想了解一下血压计"
       this.handleQuery(testQuery)
@@ -123,7 +112,7 @@ Page({
         if (res.data && res.data.code === 0 && res.data.messages) {
           const answer = res.data.messages.find(msg => msg.type === 'answer')
           if (answer) {
-            // 从回答中提取关键词
+            // ��回答中提取关键词
             const keyword = answer.content.trim()
             console.log('识别到的关键词:', keyword)
 
