@@ -3,13 +3,13 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 10rpx;
+  padding: 5rpx;
   box-sizing: border-box;
 }
 
 .video {
   width: 100%;
-  height: calc((100vw - 20rpx) * 9 / 16);
+  height: calc((100vw - 10rpx) * 9 / 16);
   max-width: 750rpx;
   max-height: calc(750rpx * 9 / 16);
   border-radius: 12rpx;
