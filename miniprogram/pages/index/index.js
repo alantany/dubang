@@ -3,23 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentImage: '../../images/display/compressed/tea.jpg',
+    currentVideo: '../../videos/tea.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        image: '../../images/display/compressed/chair.jpg',
+        video: '../../videos/chair.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        image: '../../images/display/compressed/blood_pressure.jpg',
+        video: '../../videos/blood_pressure.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        image: '../../images/display/compressed/travel.jpg',
+        video: '../../videos/travel.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        image: '../../images/display/compressed/tea.jpg',
+        video: '../../videos/tea.mp4',
         description: '养生茶饮，调理身体'
       }
     },
@@ -114,7 +114,7 @@ Page({
             const service = this.data.serviceConfig[keyword]
             if (service) {
               this.setData({
-                currentImage: service.image,
+                currentVideo: service.video,
                 description: service.description,
                 inputText: '',
                 conversation_id: res.data.conversation_id

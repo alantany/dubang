@@ -1,12 +1,13 @@
-<view class="display-container">
-  <image 
-    class="display-image"
-    src="{{currentImage}}"
-    mode="aspectFit"
-    bindload="handleImageLoad"
-    binderror="handleImageError"
-  />
-  <view class="description {{showDescription ? 'show' : ''}}">
-    {{description}}
-  </view>
+<view class="display-area">
+  <video 
+    class="display-video"
+    src="{{currentVideo}}"
+    autoplay="{{false}}"
+    loop="{{true}}"
+    controls="{{true}}"
+    show-center-play-btn="{{true}}"
+    show-play-btn="{{true}}"
+    object-fit="contain"
+  ></video>
+  <view class="description">{{description}}</view>
 </view> 

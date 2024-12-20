@@ -1,6 +1,6 @@
 <view class="container">
   <display-area 
-    currentImage="{{currentImage}}"
+    currentVideo="{{currentVideo}}"
     description="{{description}}"
   />
   <view class="input-area">

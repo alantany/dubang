@@ -1,6 +1,6 @@
 Component({
   properties: {
-    currentImage: {
+    currentVideo: {
       type: String,
       value: ''
     },
@@ -11,23 +11,16 @@ Component({
   },
 
   data: {
-    showDescription: false
+    error: false
   },
 
   methods: {
-    handleImageLoad() {
-      console.log('图片加载成功')
+    handleVideoError(e) {
+      console.error('视频加载错误:', e)
       this.setData({
-        showDescription: true
+        error: true
       })
-    },
-
-    handleImageError(e) {
-      console.error('图片加载失败', e)
-      wx.showToast({
-        title: '图片加载失败',
-        icon: 'error'
-      })
+      this.triggerEvent('error', e.detail)
     }
   }
 }) 
