@@ -120,7 +120,7 @@ Page({
         console.log('API响应:', res.data)
         if (res.data && res.data.code === 0) {
           // 获取到任务ID后，开始轮询结果
-          this.pollResult(res.data.data.id)
+          this.pollResult(res.data.data.conversation_id, res.data.data.id)
         } else {
           this.handleError('请求失败: ' + (res.data.msg || '未知错误'))
         }
@@ -132,11 +132,11 @@ Page({
     })
   },
 
-  pollResult(taskId) {
+  pollResult(conversationId, messageId) {
     // 创建轮询函数
     const checkResult = () => {
       wx.request({
-        url: `https://api.coze.cn/v3/message/${taskId}`,
+        url: `https://api.coze.cn/v3/conversations/${conversationId}/messages/${messageId}`,
         method: 'GET',
         header: {
           'Authorization': 'Bearer pat_150CPnGfyraFtlFJ76XbzILiLGzoLfxVqPCDg0yGvYvP185B9A3nUjR4dRMuI7CG'
@@ -148,7 +148,7 @@ Page({
             if (status === 'completed') {
               // 任务完成，显示结果
               this.setData({
-                description: res.data.data.reply || '对话完成',
+                description: res.data.data.content || '对话完成',
                 inputText: ''
               })
             } else if (status === 'failed') {
