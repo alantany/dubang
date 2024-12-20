@@ -25,56 +25,52 @@ Page({
   },
 
   onLoad() {
-    // 初始化语音识别管理器
-    this.initVoiceRecognition()
+    // 初始化录音管理器
+    this.initRecorder()
   },
 
-  initVoiceRecognition() {
+  initRecorder() {
     // 获取全局唯一的录音管理器
-    this.manager = wx.getRecorderManager()
+    this.recorderManager = wx.getRecorderManager()
+    // 创建内部 audio 上下文
+    this.innerAudioContext = wx.createInnerAudioContext()
 
     // 监听录音开始事件
-    this.manager.onStart(() => {
+    this.recorderManager.onStart(() => {
       console.log('录音开始')
     })
 
-    // 监听��音结束事件
-    this.manager.onStop((res) => {
+    // 监听录音结束事件
+    this.recorderManager.onStop((res) => {
       console.log('录音结束', res)
       const { tempFilePath } = res
       
-      // 显示加载提示
-      wx.showLoading({
-        title: '正在识别...'
+      this.setData({
+        description: '录音完成，正在播放...'
       })
 
-      // 使用微信原生语音识别接口
-      const plugin = requirePlugin('WechatSI')
-      plugin.recognize({
-        audioFilePath: tempFilePath,
-        success: (res) => {
-          wx.hideLoading()
-          if (res.result) {
-            console.log('识别结果:', res.result)
-            this.setData({
-              description: `识别结果: ${res.result}`
-            })
-            // TODO: 这里可以添加发送给大模型的逻辑
-          } else {
-            this.handleRecognitionError('识别结果为空')
-          }
-        },
-        fail: (err) => {
-          console.error('语音识别失败:', err)
-          this.handleRecognitionError('语音识别失败')
-        }
-      })
+      // 播放录音
+      this.innerAudioContext.src = tempFilePath
+      this.innerAudioContext.play()
     })
 
     // 监听录音错误事件
-    this.manager.onError((res) => {
+    this.recorderManager.onError((res) => {
       console.error('录音错误:', res)
-      this.handleRecognitionError('录音出错')
+      this.handleError('录音出错')
+    })
+
+    // 监听播放结束
+    this.innerAudioContext.onEnded(() => {
+      this.setData({
+        description: '录音播放完成'
+      })
+    })
+
+    // 监听播放错误
+    this.innerAudioContext.onError((res) => {
+      console.error('播放错误:', res)
+      this.handleError('播放失败')
     })
   },
 
@@ -89,7 +85,7 @@ Page({
     })
 
     // 开始录音
-    this.manager.start({
+    this.recorderManager.start({
       duration: 60000,
       sampleRate: 16000,
       numberOfChannels: 1,
@@ -104,11 +100,10 @@ Page({
     })
     wx.hideToast()
     // 停止录音
-    this.manager.stop()
+    this.recorderManager.stop()
   },
 
-  handleRecognitionError(message) {
-    wx.hideLoading()
+  handleError(message) {
     wx.showToast({
       title: message,
       icon: 'error'
