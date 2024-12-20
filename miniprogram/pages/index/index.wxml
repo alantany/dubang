@@ -2,29 +2,24 @@
   <display-area 
     videoPath="{{currentVideo}}" 
     description="{{description}}"
-    bind:videoError="handleVideoError"
   ></display-area>
   
   <view class="input-area">
     <input 
-      class="input" 
+      class="text-input" 
+      type="text" 
       placeholder="请输入您想了解的内容" 
       value="{{inputText}}"
       bindinput="handleInput"
     />
     <button 
-      class="send-btn" 
+      class="send-button" 
       bindtap="handleSend"
     >发送</button>
-  </view>
-
-  <view class="voice-btn-area">
     <button 
-      class="voice-btn"
-      bindtouchstart="handleTouchStart"
+      class="voice-button" 
+      bindtouchstart="handleTouchStart" 
       bindtouchend="handleTouchEnd"
-    >
-      {{buttonText || '按住说话'}}
-    </button>
+    >按住说话</button>
   </view>
 </view>
