@@ -41,35 +41,11 @@ Page({
 
   loadVideo(videoId) {
     console.log('加载视频:', videoId)
-    // 获取视频信息
-    wx.request({
-      url: `https://vv.video.qq.com/getinfo?vids=${videoId}&platform=101001&charge=0&otype=json`,
-      success: (res) => {
-        // 解析返回的数据
-        const dataStr = res.data.replace(/QZOutputJson=/, '')
-        const videoInfo = JSON.parse(dataStr)
-        if (videoInfo && videoInfo.vl && videoInfo.vl.vi && videoInfo.vl.vi[0]) {
-          const videoData = videoInfo.vl.vi[0]
-          const url = `http://ugcws.video.gtimg.com/${videoData.fn}?vkey=${videoData.fvkey}`
-          this.setData({
-            currentVideo: url,
-            videoId: videoId
-          })
-        } else {
-          console.error('获取视频信息失败')
-          wx.showToast({
-            title: '获取视频失败',
-            icon: 'error'
-          })
-        }
-      },
-      fail: (err) => {
-        console.error('请求视频信息失败:', err)
-        wx.showToast({
-          title: '获取视频失败',
-          icon: 'error'
-        })
-      }
+    // 使用腾讯视频的播放链接
+    const playUrl = `https://v.qq.com/x/page/${videoId}.html`
+    this.setData({
+      currentVideo: playUrl,
+      videoId: videoId
     })
   },
 
