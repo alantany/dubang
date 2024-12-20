@@ -3,23 +3,23 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: '/miniprogram/videos/tea.mp4',
+    currentVideo: '/videos/tea.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        video: '/miniprogram/videos/chair.mp4',
+        video: '/videos/chair.mp4',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: '/miniprogram/videos/blood_pressure.mp4',
+        video: '/videos/blood_pressure.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: '/miniprogram/videos/travel.mp4',
+        video: '/videos/travel.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: '/miniprogram/videos/tea.mp4',
+        video: '/videos/tea.mp4',
         description: '养生茶饮，调理身体'
       }
     },
