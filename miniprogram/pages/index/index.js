@@ -11,15 +11,15 @@ Page({
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: 'https://media.w3.org/2010/05/bunny/trailer.mp4',
+        video: 'https://download.samplelib.com/mp4/sample-5s.mp4',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: 'https://media.w3.org/2010/05/video/movie_300.mp4',
+        video: 'https://download.samplelib.com/mp4/sample-10s.mp4',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+        video: 'https://download.samplelib.com/mp4/sample-15s.mp4',
         description: '养生茶饮，调理身体'
       }
     },
@@ -72,7 +72,7 @@ Page({
       this.innerAudioContext.play()
 
       // 这里可以添加语音转文字功能
-      // 目前先使用默认文本进行测试
+      // 目前先使用默认��本进行测试
       const testQuery = "我想了解一下血压计"
       this.handleQuery(testQuery)
     })
@@ -157,7 +157,7 @@ Page({
         }
       },
       fail: (err) => {
-        console.error('请求失败:', err)
+        console.error('请求失��:', err)
         this.handleError('网络请求失败')
       }
     })
