@@ -91,6 +91,11 @@ Page({
       description: '正在思考中...'
     })
 
+    // 发送消息
+    this.sendMessage(this.data.inputText)
+  },
+
+  sendMessage(content) {
     wx.request({
       url: 'https://api.coze.cn/v3/chat',
       method: 'POST',
@@ -106,20 +111,18 @@ Page({
         additional_messages: [
           {
             role: 'user',
-            content: this.data.inputText,
+            content: content,
             content_type: 'text'
           }
         ]
       },
       success: (res) => {
-        console.log('大模型响应:', res.data)
-        if (res.data && res.data.reply) {
-          this.setData({
-            description: res.data.reply,
-            inputText: ''
-          })
+        console.log('API响应:', res.data)
+        if (res.data && res.data.code === 0) {
+          // 获取到任务ID后，开始轮询结果
+          this.pollResult(res.data.data.id)
         } else {
-          this.handleError('响应格式错误')
+          this.handleError('请求失败: ' + (res.data.msg || '未知错误'))
         }
       },
       fail: (err) => {
@@ -127,6 +130,46 @@ Page({
         this.handleError('网络请求失败')
       }
     })
+  },
+
+  pollResult(taskId) {
+    // 创建轮询函数
+    const checkResult = () => {
+      wx.request({
+        url: `https://api.coze.cn/v3/message/${taskId}`,
+        method: 'GET',
+        header: {
+          'Authorization': 'Bearer pat_150CPnGfyraFtlFJ76XbzILiLGzoLfxVqPCDg0yGvYvP185B9A3nUjR4dRMuI7CG'
+        },
+        success: (res) => {
+          console.log('轮询结果:', res.data)
+          if (res.data && res.data.code === 0) {
+            const status = res.data.data.status
+            if (status === 'completed') {
+              // 任务完成，显示结果
+              this.setData({
+                description: res.data.data.reply || '对话完成',
+                inputText: ''
+              })
+            } else if (status === 'failed') {
+              this.handleError('对话失败: ' + (res.data.data.last_error?.msg || '未知错误'))
+            } else if (status === 'in_progress') {
+              // 继续轮询
+              setTimeout(checkResult, 1000)
+            }
+          } else {
+            this.handleError('获取结果失败: ' + (res.data.msg || '未知错误'))
+          }
+        },
+        fail: (err) => {
+          console.error('轮询失败:', err)
+          this.handleError('获取结果失败')
+        }
+      })
+    }
+
+    // 开始轮询
+    checkResult()
   },
 
   handleTouchStart() {
