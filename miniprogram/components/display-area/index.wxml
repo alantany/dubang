@@ -19,5 +19,4 @@
     title="健康服务视频"
   ></video>
   <view class="description">{{description}}</view>
-  <view class="debug-info">当前视频: {{videoPath}}</view>
 </view> 
