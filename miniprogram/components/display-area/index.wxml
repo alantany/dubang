@@ -2,12 +2,17 @@
   <video 
     class="display-video"
     src="{{currentVideo}}"
-    autoplay="{{false}}"
+    autoplay="{{true}}"
     loop="{{true}}"
     controls="{{true}}"
     show-center-play-btn="{{true}}"
     show-play-btn="{{true}}"
-    object-fit="contain"
+    object-fit="cover"
+    enable-progress-gesture="{{true}}"
+    initial-time="0"
+    bindplay="handleVideoPlay"
+    bindpause="handleVideoPause"
+    binderror="handleVideoError"
   ></video>
   <view class="description">{{description}}</view>
 </view> 
