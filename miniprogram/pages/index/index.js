@@ -3,23 +3,24 @@ Page({
   data: {
     buttonText: '',
     inputText: '',
-    currentVideo: 'https://stream7.iqilu.com/10339/article/202002/18/2fca1c77730e54c7b500573c2437003f.mp4',
+    currentVideo: '',
+    videoId: 'm33655tunvk',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
-        video: 'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218093206z8V1JuPlpe.mp4',
+        videoId: 'i35128ouny8',
         description: '人体工学椅，让您的腰部更舒适'
       },
       '血压': {
-        video: 'https://stream7.iqilu.com/10339/article/202002/18/2fca1c77730e54c7b500573c2437003f.mp4',
+        videoId: 'j3564unxnwi',
         description: '智能血压计，随时监测您的健康'
       },
       '旅游': {
-        video: 'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4',
+        videoId: 'a0034xqzian',
         description: '特惠旅游套餐，放松身心'
       },
       '茶': {
-        video: 'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218025702PSiVKDB5ap.mp4',
+        videoId: 'm33655tunvk',
         description: '养生茶饮，调理身体'
       }
     },
@@ -31,9 +32,21 @@ Page({
     const pages = getCurrentPages()
     const currentPage = pages[pages.length - 1]
     console.log('当前页面路径:', currentPage.route)
-    console.log('视频路径:', this.data.currentVideo)
+    
+    // 加载初始视频
+    this.loadVideo(this.data.videoId)
     
     this.initRecorder()
+  },
+
+  loadVideo(videoId) {
+    console.log('加载视频:', videoId)
+    // 构建实际的播放地址
+    const playUrl = `https://v.qq.com/txp/iframe/player.html?vid=${videoId}`
+    this.setData({
+      currentVideo: playUrl,
+      videoId: videoId
+    })
   },
 
   handleVideoError(e) {
@@ -127,8 +140,9 @@ Page({
             // 查找对应的服务配置
             const service = this.data.serviceConfig[keyword]
             if (service) {
+              // 加载对应的视频
+              this.loadVideo(service.videoId)
               this.setData({
-                currentVideo: service.video,
                 description: service.description,
                 inputText: '',
                 conversation_id: res.data.conversation_id
