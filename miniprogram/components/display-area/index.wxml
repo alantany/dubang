@@ -1,9 +1,23 @@
 <view class="container">
-  <web-view 
+  <video 
     class="video" 
     src="{{videoPath}}"
+    autoplay="{{false}}"
+    loop="{{true}}"
+    controls="{{true}}"
+    show-center-play-btn="{{true}}"
+    show-play-btn="{{true}}"
+    enable-progress-gesture="{{true}}"
+    object-fit="contain"
     binderror="handleVideoError"
-  ></web-view>
+    bindplay="handleVideoPlay"
+    bindpause="handleVideoPause"
+    bindended="handleVideoEnded"
+    initial-time="0"
+    direction="0"
+    show-mute-btn="{{true}}"
+    title="健康服务视频"
+  ></video>
   <view class="description">{{description}}</view>
   <view class="debug-info">当前视频ID: {{videoPath}}</view>
 </view> 
