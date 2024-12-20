@@ -2,17 +2,14 @@
   <video 
     class="display-video"
     src="{{currentVideo}}"
-    autoplay="{{true}}"
-    loop="{{true}}"
-    controls="{{true}}"
-    show-center-play-btn="{{true}}"
-    show-play-btn="{{true}}"
-    object-fit="cover"
-    enable-progress-gesture="{{true}}"
-    initial-time="0"
-    bindplay="handleVideoPlay"
-    bindpause="handleVideoPause"
+    controls
+    show-center-play-btn
+    show-play-btn
+    object-fit="contain"
     binderror="handleVideoError"
+    bindloadedmetadata="handleVideoLoaded"
   ></video>
+  <view class="video-path">当前视频: {{currentVideo}}</view>
+  <view class="error-info" wx:if="{{error}}">错误信息: {{errorMsg}}</view>
   <view class="description">{{description}}</view>
 </view> 

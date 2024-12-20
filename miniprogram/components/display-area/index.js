@@ -12,34 +12,34 @@ Component({
 
   data: {
     error: false,
+    errorMsg: '',
     isPlaying: false
   },
 
   methods: {
-    handleVideoPlay() {
-      console.log('视频开始播放')
+    handleVideoLoaded(e) {
+      console.log('视频元数据加载成功:', e)
       this.setData({
-        isPlaying: true
-      })
-    },
-
-    handleVideoPause() {
-      console.log('视频暂停播放')
-      this.setData({
-        isPlaying: false
+        error: false,
+        errorMsg: ''
       })
     },
 
     handleVideoError(e) {
       console.error('视频加载错误:', e)
+      const errorMsg = e.detail.errMsg || '未知错误'
       this.setData({
-        error: true
+        error: true,
+        errorMsg: errorMsg
       })
       wx.showToast({
         title: '视频加载失败',
         icon: 'error'
       })
-      this.triggerEvent('error', e.detail)
+      this.triggerEvent('error', {
+        error: errorMsg,
+        videoPath: this.data.currentVideo
+      })
     }
   }
 }) 
