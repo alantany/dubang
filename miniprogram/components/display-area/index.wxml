@@ -1,17 +1,15 @@
 <view class="video-container">
   <video 
+    id="myVideo"
     class="video" 
     src="{{videoPath}}"
-    autoplay="{{false}}"
+    autoplay="{{true}}"
     loop="{{true}}"
     controls="{{true}}"
     show-center-play-btn="{{true}}"
     show-play-btn="{{true}}"
     object-fit="contain"
     binderror="handleVideoError"
-    bindplay="handleVideoPlay"
-    bindpause="handleVideoPause"
-    bindended="handleVideoEnded"
   ></video>
   <view class="description">
     <text class="{{isWelcomeText ? 'welcome-text' : 'normal-text'}}">{{description}}</text>

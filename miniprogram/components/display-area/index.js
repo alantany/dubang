@@ -19,7 +19,13 @@ Component({
 
   observers: {
     'videoPath': function(newPath) {
-      console.log('视频路径已更新:', newPath)
+      if (newPath) {
+        // 当视频路径更新时，自动播放新视频
+        setTimeout(() => {
+          const videoContext = wx.createVideoContext('myVideo', this)
+          videoContext.play()
+        }, 100)
+      }
     },
     'description': function(description) {
       // 检查是否是欢迎文案
