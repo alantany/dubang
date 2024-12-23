@@ -8,26 +8,25 @@ Page({
     serviceConfig: {
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
-        description: '人体工学椅，让您的腰部更舒适'
+        description: '人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的靠背支撑，让您在看电视、阅读时保持正确坐姿，提升生活品质。'
       },
       '血压': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-        description: '智能血压计，随时监测您的健康'
+        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒，守护您的健康。'
       },
       '旅游': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/travel.mp4',
-        description: '特惠旅游套餐，放松身心'
+        description: '精心定制的老年旅游套餐，配备专业医护人员陪同。行程节奏轻松，住宿舒适，让您在游览美景的同时，放松身心，增进健康，结交新朋友。'
       },
       '茶': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/tea.mp4',
-        description: '养生茶饮，调理身体'
+        description: '精选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
       }
     },
     conversation_id: '123123'
   },
 
   onLoad() {
-    // 打印当前页面路径，帮助调试
     const pages = getCurrentPages()
     const currentPage = pages[pages.length - 1]
     console.log('当前页面路径:', currentPage.route)
@@ -67,14 +66,29 @@ Page({
         description: '录音完成，正在识别...'
       })
 
-      // 播放录音
-      this.innerAudioContext.src = tempFilePath
-      this.innerAudioContext.play()
-
-      // 这里可以添加语音转文字功能
-      // 目前先使用默认��进行测试
-      const testQuery = "我想了解一下血压计"
-      this.handleQuery(testQuery)
+      // 使用微信语音识别API
+      wx.startRecord({
+        success: (res) => {
+          const { tempFilePath } = res
+          // 将录音文件转成文字
+          wx.getRecognizeResult({
+            tempFilePath,
+            success: (res) => {
+              const text = res.result
+              console.log('语音识别结果:', text)
+              this.handleQuery(text)
+            },
+            fail: (err) => {
+              console.error('语音识别失败:', err)
+              this.handleError('语音识别失败')
+            }
+          })
+        },
+        fail: (err) => {
+          console.error('录音失败:', err)
+          this.handleError('录音失败')
+        }
+      })
     })
 
     this.recorderManager.onError((res) => {
