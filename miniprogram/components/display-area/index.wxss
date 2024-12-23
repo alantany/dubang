@@ -25,7 +25,7 @@
 .description {
   width: 100%;
   padding: 40rpx 20rpx;
-  font-size: 60rpx;
+  font-size: 48rpx;
   font-weight: bold;
   color: #333;
   line-height: 1.5;
