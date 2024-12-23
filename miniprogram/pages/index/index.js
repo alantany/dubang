@@ -6,7 +6,7 @@ Page({
     buttonText: '',
     inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-    description: '欢迎使用都邦健康，请输入或按住按钮说话',
+    description: '欢迎使用都邦健康\n\n您可以提出您的需求\n\n我们现在有护理、血压仪、椅子、茶道、旅游等方面服务\n\n请说出您的需求',
     serviceConfig: {
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
@@ -22,7 +22,7 @@ Page({
       },
       '茶': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/tea.mp4',
-        description: '精选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
+        description: '���选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
       }
     },
     conversation_id: '123123',
@@ -124,7 +124,7 @@ Page({
       })
     }
 
-    // 监听录音结束事件
+    // ���听录音结束事件
     this.recorderManager.onStop = (res) => {
       console.log('录音结束', res)
       this.setData({
