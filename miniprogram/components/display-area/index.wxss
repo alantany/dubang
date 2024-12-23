@@ -5,7 +5,6 @@
   width: 100%;
   padding: 0;
   box-sizing: border-box;
-  position: relative;
 }
 
 .video-container {
@@ -24,13 +23,9 @@
 }
 
 .description {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  padding: 20rpx;
-  font-size: 32rpx;
+  width: 100%;
+  padding: 40rpx 20rpx;
+  font-size: 60rpx;
   font-weight: bold;
   color: #333;
   line-height: 1.5;

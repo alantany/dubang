@@ -56,10 +56,10 @@
 .description-text {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 30%;
   transform: translate(-50%, -50%);
   width: 90%;
-  font-size: 32rpx;
+  font-size: 48rpx;
   font-weight: bold;
   color: #333;
   text-align: center;
