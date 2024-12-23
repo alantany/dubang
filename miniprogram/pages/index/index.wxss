@@ -4,6 +4,7 @@
   height: 100vh;
   padding: 20rpx;
   box-sizing: border-box;
+  padding-bottom: 300rpx;
 }
 
 .input-area {
@@ -12,7 +13,7 @@
   background-color: #fff;
   border-top: 1rpx solid #eee;
   position: fixed;
-  bottom: 100rpx;
+  bottom: 240rpx;
   left: 0;
   right: 0;
   gap: 20rpx;

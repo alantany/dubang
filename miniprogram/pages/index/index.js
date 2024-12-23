@@ -56,7 +56,7 @@ Page({
 
     // 监听录音开始事件
     this.recorderManager.onStart(() => {
-      console.log('录音开始')
+      console.log('录音���始')
       this.setData({
         description: '正在录音...'
       })
@@ -71,13 +71,20 @@ Page({
         description: '录音完成，正在识别...'
       })
 
-      // 使用微信同声传译插件
-      const plugin = requirePlugin("WechatSI")
-      plugin.recognize({
-        audioFile: tempFilePath,
+      // 使用微信原生语音识别
+      wx.request({
+        url: `https://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=${this.data.access_token}&lfrom=zh_CN&lto=zh_CN`,
+        method: 'POST',
+        data: {
+          voice_id: tempFilePath
+        },
         success: (res) => {
-          console.log('语音识别结果:', res.result)
-          this.handleQuery(res.result)
+          console.log('语音识别结果:', res.data)
+          if (res.data && res.data.result) {
+            this.handleQuery(res.data.result)
+          } else {
+            this.handleError('未能识别语音内容')
+          }
         },
         fail: (err) => {
           console.error('语音识别失败:', err)
