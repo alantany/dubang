@@ -102,13 +102,19 @@ Page({
     // 监听识别结果
     this.recorderManager.onRecognize = (res) => {
       console.log("当前识别结果:", res.result)
+      // 显示实时识别结果
+      if (res.result) {
+        this.setData({
+          description: `正在识别: ${res.result}`
+        })
+      }
     }
 
     // 监听录音开始事件
     this.recorderManager.onStart = (res) => {
       console.log('录音开始', res)
       this.setData({
-        description: '正在录音...'
+        description: '正在录音，请说话...'
       })
     }
 
@@ -118,21 +124,34 @@ Page({
       console.log('录音文件:', res.tempFilePath)
       console.log('识别结果:', res.result)
       
+      // 如果没有识别结果，尝试重新识别
+      if (!res.result) {
+        this.setData({
+          description: '未能识别，请重试'
+        })
+        return
+      }
+
       this.setData({
         description: '录音完成，正在处理...'
       })
 
-      if (res.result) {
-        this.handleQuery(res.result)
-      } else {
-        this.handleError('未能识别语音内容')
-      }
+      this.handleQuery(res.result)
     }
 
     // 监听录音错误事件
     this.recorderManager.onError = (res) => {
       console.error('录音错误:', res)
-      this.handleError(res.msg || '录音出错')
+      // 根据错误码处理不同情况
+      let errorMsg = '录音出错'
+      if (res.retcode === -30004) {
+        errorMsg = '未能识别语音，请重试'
+      } else if (res.retcode === -30003) {
+        errorMsg = '录音时间太短'
+      } else if (res.retcode === -30002) {
+        errorMsg = '录音失败，请重试'
+      }
+      this.handleError(errorMsg)
     }
   },
 
@@ -222,7 +241,7 @@ Page({
     }
 
     this.setData({
-      buttonText: '请说话...'
+      buttonText: '松开结束'
     })
     wx.showToast({
       title: '请说话...',
@@ -230,10 +249,12 @@ Page({
       duration: 60000
     })
 
-    // 开始��音识别
+    // 开始录音识别，增加参数配置
     this.recorderManager.start({
       duration: 30000,
-      lang: "zh_CN"
+      lang: "zh_CN",
+      minVolume: 0.1,
+      sampleRate: 16000
     })
   },
 
