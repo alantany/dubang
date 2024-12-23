@@ -35,23 +35,15 @@
 }
 
 .text-line1 {
-  color: #07c160;
+  color: #007AFF;
 }
 
-.text-line2 {
-  color: #333333;
-}
-
-.text-line3 {
-  color: #1485ee;
-}
-
-.text-line4 {
-  color: #333333;
+.text-line2, .text-line3, .text-line4 {
+  color: #000000;
 }
 
 .text-line5 {
-  color: #ff9500;
+  color: #FF9500;
 }
 
 .debug-info {
