@@ -4,10 +4,6 @@
     description="{{description}}"
   ></display-area>
 
-  <view class="recognition-area">
-    <view class="recognition-text">{{recognitionText || '请说出您感兴趣的内容'}}</view>
-  </view>
-
   <view class="voice-button-area">
     <view class="test-button" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
       <view class="inner-circle"></view>

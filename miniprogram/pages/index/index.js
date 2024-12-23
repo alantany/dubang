@@ -3,9 +3,10 @@ const plugin = requirePlugin("WechatSI")
 
 Page({
   data: {
+    buttonText: '',
+    inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
     description: '欢迎使用都邦健康，请输入或按住按钮说话',
-    recognitionText: '',
     serviceConfig: {
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
@@ -21,7 +22,7 @@ Page({
       },
       '茶': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/tea.mp4',
-        description: '精选优质茶叶，���含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
+        description: '精选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
       }
     },
     conversation_id: '123123',
@@ -109,7 +110,7 @@ Page({
       console.log("当前识别结果:", res.result)
       if (res.result) {
         this.setData({
-          recognitionText: `"${res.result}"`
+          description: `正在识别: ${res.result}`
         })
       }
     }
@@ -118,7 +119,7 @@ Page({
     this.recorderManager.onStart = (res) => {
       console.log('录音开始', res)
       this.setData({
-        recognitionText: '正在聆听...',
+        description: '正在录音，请说话...',
         isRecording: true
       })
     }
@@ -132,13 +133,13 @@ Page({
 
       if (!res.result) {
         this.setData({
-          recognitionText: '未能识别，请重试'
+          description: '未能识别，请重试'
         })
         return
       }
 
       this.setData({
-        recognitionText: '正在思考...'
+        description: '录音完成，正在处理...'
       })
 
       this.handleQuery(res.result)
@@ -161,13 +162,23 @@ Page({
       }
       
       this.setData({
-        recognitionText: errorMsg
+        description: errorMsg
       })
       this.handleError(errorMsg)
     }
   },
 
+  handleInput(e) {
+    this.setData({
+      inputText: e.detail.value
+    })
+  },
+
   handleQuery(query) {
+    this.setData({
+      description: '正在思考中...'
+    })
+
     wx.request({
       url: 'https://api.coze.cn/open_api/v2/chat',
       method: 'POST',
@@ -198,12 +209,13 @@ Page({
               this.loadVideo(service.video)
               this.setData({
                 description: service.description,
-                recognitionText: `已为您找到"${keyword}"相关内容`,
+                inputText: '',
                 conversation_id: res.data.conversation_id
               })
             } else {
               this.setData({
-                recognitionText: '抱歉，我没有找到相关的服务信息',
+                description: '抱歉，我没有找到相关的服务信息',
+                inputText: '',
                 conversation_id: res.data.conversation_id
               })
             }
@@ -221,6 +233,15 @@ Page({
     })
   },
 
+  handleSend() {
+    if (!this.data.inputText.trim()) {
+      this.handleError('请输入内容')
+      return
+    }
+
+    this.handleQuery(this.data.inputText)
+  },
+
   handleTouchStart() {
     if (!this.data.hasRecordAuth) {
       this.requestRecordAuth()
@@ -236,6 +257,11 @@ Page({
       return
     }
 
+    this.setData({
+      buttonText: '松开结束',
+      description: '准备录音...'
+    })
+
     // 开始录音识别
     this.recorderManager.start({
       duration: 30000,
@@ -246,14 +272,16 @@ Page({
 
   handleTouchEnd() {
     if (this.recorderManager && this.data.isRecording) {
+      this.setData({
+        buttonText: '',
+        description: '正在处理...'
+      })
+      wx.hideToast()
       this.recorderManager.stop()
     }
   },
 
   handleError(message) {
-    this.setData({
-      recognitionText: message
-    })
     wx.showToast({
       title: message,
       icon: 'error'
