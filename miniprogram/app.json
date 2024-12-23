@@ -8,6 +8,12 @@
     "navigationBarTitleText": "都邦健康",
     "navigationBarTextStyle": "black"
   },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.1",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "useExtendedLib": {

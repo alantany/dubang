@@ -1,4 +1,6 @@
 // index.js
+const plugin = requirePlugin("WechatSI")
+
 Page({
   data: {
     buttonText: '',
@@ -94,35 +96,44 @@ Page({
       return
     }
 
-    // 创建录音管理器
-    this.recorderManager = wx.createRecorderManager()
+    // 使用同声传译插件的语音识别管理器
+    this.recorderManager = plugin.getRecordRecognitionManager()
+
+    // 监听识别结果
+    this.recorderManager.onRecognize = (res) => {
+      console.log("当前识别结果:", res.result)
+    }
 
     // 监听录音开始事件
-    this.recorderManager.onStart(() => {
-      console.log('录音开始')
+    this.recorderManager.onStart = (res) => {
+      console.log('录音开始', res)
       this.setData({
         description: '正在录音...'
       })
-    })
+    }
 
     // 监听录音结束事件
-    this.recorderManager.onStop((res) => {
+    this.recorderManager.onStop = (res) => {
       console.log('录音结束', res)
-      const { tempFilePath } = res
+      console.log('录音文件:', res.tempFilePath)
+      console.log('识别结果:', res.result)
       
       this.setData({
-        description: '录音完成，正在识别...'
+        description: '录音完成，正在处理...'
       })
 
-      // 直接使用录音文件进行测试
-      this.handleQuery("我想了解一下血压计")
-    })
+      if (res.result) {
+        this.handleQuery(res.result)
+      } else {
+        this.handleError('未能识别语音内容')
+      }
+    }
 
     // 监听录音错误事件
-    this.recorderManager.onError((res) => {
+    this.recorderManager.onError = (res) => {
       console.error('录音错误:', res)
-      this.handleError('录音出错')
-    })
+      this.handleError(res.msg || '录音出错')
+    }
   },
 
   handleInput(e) {
@@ -219,13 +230,10 @@ Page({
       duration: 60000
     })
 
-    // 开始录音
+    // 开始��音识别
     this.recorderManager.start({
-      duration: 60000,
-      sampleRate: 16000,
-      numberOfChannels: 1,
-      encodeBitRate: 96000,
-      format: 'mp3'
+      duration: 30000,
+      lang: "zh_CN"
     })
   },
 
