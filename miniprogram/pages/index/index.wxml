@@ -4,21 +4,10 @@
     description="{{description}}"
   ></display-area>
   
-  <view class="input-area">
-    <input 
-      class="text-input" 
-      type="text" 
-      placeholder="请输入您想了解的内容" 
-      value="{{inputText}}"
-      bindinput="handleInput"
-    />
-    <button 
-      class="send-button" 
-      bindtap="handleSend"
-    >发送</button>
-  </view>
-
   <view class="voice-button-area">
+    <view class="recognition-text" wx:if="{{lastRecognitionText}}">
+      您说的是：{{lastRecognitionText}}
+    </view>
     <view 
       class="test-button"
       bindtouchstart="handleTouchStart" 

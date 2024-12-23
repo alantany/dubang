@@ -4,7 +4,8 @@
   height: 100vh;
   padding: 20rpx;
   box-sizing: border-box;
-  padding-bottom: 300rpx;
+  padding-bottom: 200rpx;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
 }
 
 .input-area {
@@ -43,12 +44,27 @@
 
 .voice-button-area {
   position: fixed;
-  bottom: 40rpx;
+  bottom: 120rpx;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 20rpx;
+}
+
+.recognition-text {
+  font-size: 34rpx;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 .test-button {
@@ -80,7 +96,8 @@
   position: absolute;
   width: 100%;
   text-align: center;
-  font-size: 24rpx;
+  font-size: 32rpx;
   color: #333;
-  bottom: -50rpx;
+  bottom: -70rpx;
+  font-weight: 500;
 } 
