@@ -1,13 +1,35 @@
 <view class="container">
-  <display-area 
-    videoPath="{{currentVideo}}" 
-    description="{{description}}"
-    bind:videoError="handleVideoError"
-  ></display-area>
+  <view class="header">
+    <text class="welcome-text">欢迎使用都邦健康</text>
+    <text class="sub-text">我们为您提供专业的健康服务</text>
+  </view>
+
+  <view class="service-grid">
+    <view class="service-card">
+      <view class="service-icon nursing"></view>
+      <text class="service-name">护理服务</text>
+    </view>
+    <view class="service-card">
+      <view class="service-icon blood-pressure"></view>
+      <text class="service-name">血压检测</text>
+    </view>
+    <view class="service-card">
+      <view class="service-icon wheelchair"></view>
+      <text class="service-name">轮椅租赁</text>
+    </view>
+    <view class="service-card">
+      <view class="service-icon tea"></view>
+      <text class="service-name">茶道体验</text>
+    </view>
+    <view class="service-card">
+      <view class="service-icon travel"></view>
+      <text class="service-name">健康旅游</text>
+    </view>
+  </view>
 
   <view class="voice-button-area">
     <text wx:if="{{recognizedText}}" class="recognized-text">{{recognizedText}}</text>
-    <view class="test-button" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
+    <view class="voice-button" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
       <view class="inner-circle"></view>
       <text class="button-text">按住说话</text>
     </view>
