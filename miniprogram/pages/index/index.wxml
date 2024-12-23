@@ -2,6 +2,7 @@
   <display-area 
     videoPath="{{currentVideo}}" 
     description="{{description}}"
+    bind:videoError="handleVideoError"
   ></display-area>
 
   <view class="voice-button-area">
