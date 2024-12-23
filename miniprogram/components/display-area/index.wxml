@@ -13,12 +13,7 @@
   ></video>
   <view class="description">
     <block wx:if="{{isWelcomeText}}">
-      <view class="welcome-text">
-        <text>欢迎使用都邦健康</text>
-        <text>我们现在提供</text>
-        <text><text class="service-name">护理</text>、<text class="service-name">血压仪</text>、<text class="service-name">椅子</text>、<text class="service-name">茶道</text>、<text class="service-name">旅游</text>\n等方面服务</text>
-        <text>您可以说:介绍一些旅游方面的服务</text>
-      </view>
+      <text class="welcome-text">欢迎使用都邦健康\n\n我们现在提供\n\n<text class="service-name">护理</text>、<text class="service-name">血压仪</text>、<text class="service-name">椅子</text>、<text class="service-name">茶道</text>、<text class="service-name">旅游</text>\n等方面服务\n\n比如,您可以说:介绍一些旅游方面的服务</text>
     </block>
     <block wx:else>
       <text class="normal-text">{{description}}</text>
