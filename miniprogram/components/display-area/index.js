@@ -13,7 +13,8 @@ Component({
   data: {
     error: false,
     errorMsg: '',
-    isPlaying: false
+    isPlaying: false,
+    isWelcomeText: false
   },
 
   methods: {
@@ -72,6 +73,15 @@ Component({
     },
     hide() {
       // 页面隐藏时的逻辑
+    }
+  },
+
+  observers: {
+    'description': function(description) {
+      // 检查是否是欢迎文案
+      this.setData({
+        isWelcomeText: description.startsWith('欢迎使用都邦健康')
+      });
     }
   }
 }) 

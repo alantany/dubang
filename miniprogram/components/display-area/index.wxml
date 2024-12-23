@@ -10,6 +10,6 @@
     object-fit="contain"
   ></video>
   <view class="description">
-    <text class="{{description === '欢迎使用都邦健康\n\n我们现在提供\n\n护理、血压仪、椅子、茶道、旅游\n\n等方面服务\n\n比如,您可以说:介绍一些旅游方面的服务' ? 'welcome-text' : 'normal-text'}}">{{description}}</text>
+    <text class="{{isWelcomeText ? 'welcome-text' : 'normal-text'}}">{{description}}</text>
   </view>
 </view> 
