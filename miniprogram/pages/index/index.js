@@ -51,13 +51,18 @@ Page({
   },
 
   initRecorder() {
-    this.recorderManager = wx.getRecorderManager()
-    this.innerAudioContext = wx.createInnerAudioContext()
+    // 创建录音管理器
+    this.recorderManager = wx.createRecorderManager()
 
+    // 监听录音开始事件
     this.recorderManager.onStart(() => {
       console.log('录音开始')
+      this.setData({
+        description: '正在录音...'
+      })
     })
 
+    // 监听录音结束事件
     this.recorderManager.onStop((res) => {
       console.log('录音结束', res)
       const { tempFilePath } = res
@@ -66,45 +71,31 @@ Page({
         description: '录音完成，正在识别...'
       })
 
-      // 使用微信语音识别API
-      wx.startRecord({
-        success: (res) => {
-          const { tempFilePath } = res
-          // 将录音文件转成文字
-          wx.getRecognizeResult({
-            tempFilePath,
-            success: (res) => {
-              const text = res.result
-              console.log('语音识别结果:', text)
-              this.handleQuery(text)
-            },
-            fail: (err) => {
-              console.error('语音识别失败:', err)
-              this.handleError('语音识别失败')
-            }
-          })
+      // 调用微信云函数进行语音识别
+      wx.cloud.callFunction({
+        name: 'speechToText',
+        data: {
+          audioFile: tempFilePath
         },
-        fail: (err) => {
-          console.error('录音失败:', err)
-          this.handleError('录音失败')
+        success: res => {
+          console.log('语音识别结果:', res.result)
+          if (res.result && res.result.text) {
+            this.handleQuery(res.result.text)
+          } else {
+            this.handleError('未能识别语音内容')
+          }
+        },
+        fail: err => {
+          console.error('语音识别失败:', err)
+          this.handleError('语音识别失败')
         }
       })
     })
 
+    // 监听录音错误事件
     this.recorderManager.onError((res) => {
       console.error('录音错误:', res)
       this.handleError('录音出错')
-    })
-
-    this.innerAudioContext.onEnded(() => {
-      this.setData({
-        description: '正在分析您的需求...'
-      })
-    })
-
-    this.innerAudioContext.onError((res) => {
-      console.error('播放错误:', res)
-      this.handleError('播放失败')
     })
   },
 
@@ -141,14 +132,11 @@ Page({
         if (res.data && res.data.code === 0 && res.data.messages) {
           const answer = res.data.messages.find(msg => msg.type === 'answer')
           if (answer) {
-            // 回答中提取关键词
             const keyword = answer.content.trim()
             console.log('识别到的关键词:', keyword)
 
-            // 查找对应的服务配置
             const service = this.data.serviceConfig[keyword]
             if (service) {
-              // 加载对应的视频
               this.loadVideo(service.video)
               this.setData({
                 description: service.description,
@@ -156,7 +144,6 @@ Page({
                 conversation_id: res.data.conversation_id
               })
             } else {
-              // 如果没有找到对应的服务，保持默认显示
               this.setData({
                 description: '抱歉，我没有找到相关的服务信息',
                 inputText: '',
@@ -196,6 +183,7 @@ Page({
       duration: 60000
     })
 
+    // 开始录音
     this.recorderManager.start({
       duration: 60000,
       sampleRate: 16000,
