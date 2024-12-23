@@ -23,7 +23,8 @@ Page({
         description: '精选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
       }
     },
-    conversation_id: '123123'
+    conversation_id: '123123',
+    hasRecordAuth: false
   },
 
   onLoad() {
@@ -32,7 +33,44 @@ Page({
     console.log('当前页面路径:', currentPage.route)
     console.log('当前视频:', this.data.currentVideo)
     
-    this.initRecorder()
+    // 检查录音授权
+    wx.getSetting({
+      success: (res) => {
+        if (res.authSetting['scope.record']) {
+          this.setData({ hasRecordAuth: true })
+          this.initRecorder()
+        }
+      }
+    })
+  },
+
+  // 请求录音授权
+  requestRecordAuth() {
+    wx.authorize({
+      scope: 'scope.record',
+      success: () => {
+        this.setData({ hasRecordAuth: true })
+        this.initRecorder()
+      },
+      fail: () => {
+        wx.showModal({
+          title: '提示',
+          content: '需要您的录音权限，是否去设置？',
+          success: (res) => {
+            if (res.confirm) {
+              wx.openSetting({
+                success: (res) => {
+                  if (res.authSetting['scope.record']) {
+                    this.setData({ hasRecordAuth: true })
+                    this.initRecorder()
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+    })
   },
 
   loadVideo(video) {
@@ -51,12 +89,17 @@ Page({
   },
 
   initRecorder() {
+    if (!this.data.hasRecordAuth) {
+      this.requestRecordAuth()
+      return
+    }
+
     // 创建录音管理器
     this.recorderManager = wx.createRecorderManager()
 
     // 监听录音开始事件
     this.recorderManager.onStart(() => {
-      console.log('录音���始')
+      console.log('录音开始')
       this.setData({
         description: '正在录音...'
       })
@@ -71,26 +114,8 @@ Page({
         description: '录音完成，正在识别...'
       })
 
-      // 使用微信原生语音识别
-      wx.request({
-        url: `https://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=${this.data.access_token}&lfrom=zh_CN&lto=zh_CN`,
-        method: 'POST',
-        data: {
-          voice_id: tempFilePath
-        },
-        success: (res) => {
-          console.log('语音识别结果:', res.data)
-          if (res.data && res.data.result) {
-            this.handleQuery(res.data.result)
-          } else {
-            this.handleError('未能识别语音内容')
-          }
-        },
-        fail: (err) => {
-          console.error('语音识别失败:', err)
-          this.handleError('语音识别失败')
-        }
-      })
+      // 直接使用录音文件进行测试
+      this.handleQuery("我想了解一下血压计")
     })
 
     // 监听录音错误事件
@@ -175,6 +200,16 @@ Page({
   },
 
   handleTouchStart() {
+    if (!this.data.hasRecordAuth) {
+      this.requestRecordAuth()
+      return
+    }
+
+    if (!this.recorderManager) {
+      this.initRecorder()
+      return
+    }
+
     this.setData({
       buttonText: '请说话...'
     })
@@ -195,11 +230,13 @@ Page({
   },
 
   handleTouchEnd() {
-    this.setData({
-      buttonText: ''
-    })
-    wx.hideToast()
-    this.recorderManager.stop()
+    if (this.recorderManager) {
+      this.setData({
+        buttonText: ''
+      })
+      wx.hideToast()
+      this.recorderManager.stop()
+    }
   },
 
   handleError(message) {
