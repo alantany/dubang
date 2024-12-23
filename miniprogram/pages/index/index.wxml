@@ -4,11 +4,6 @@
     description="{{description}}"
   ></display-area>
 
-  <view class="input-area">
-    <input class="text-input" placeholder="请输入您想了解的内容" value="{{inputText}}" bindinput="handleInput" />
-    <button class="send-button" bindtap="handleSend">发送</button>
-  </view>
-
   <view class="voice-button-area">
     <view class="test-button" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
       <view class="inner-circle"></view>
