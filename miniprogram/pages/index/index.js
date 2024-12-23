@@ -8,13 +8,17 @@ Page({
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
     description: '欢迎使用都邦健康\n\n我们现在提供\n\n护理、血压仪、椅子、茶道、旅游\n\n等方面服务\n\n比如,您可以说:介绍一些旅游方面的服务',
     serviceConfig: {
+      '护理': {
+        video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/care.mp4',
+        description: '我们提供专业的老年人关怀服务，由经验丰富的护理人员提供一对一照料。包括生活起居照料、健康监测、陪诊就医、心理关怀等全方位服务，让老年人感受到家人般的温暖和关爱。'
+      },
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
-        description: '人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的靠背支撑，让您在看电视、阅读时保持正确坐姿，提升生活品质。'
+        description: '人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的靠背支撑，让您在���电视、阅读时保持正确坐姿，提升生活品质。'
       },
       '血压': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒���护您的健康。'
+        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒，守护您的健康。'
       },
       '旅游': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/travel.mp4',
@@ -33,7 +37,7 @@ Page({
   onLoad() {
     const pages = getCurrentPages()
     const currentPage = pages[pages.length - 1]
-    console.log('当前页面路径:', currentPage.route)
+    console.log('当������面路径:', currentPage.route)
     console.log('当前视频:', this.data.currentVideo)
     
     // 检查录音授权
@@ -83,7 +87,7 @@ Page({
 
   loadVideo(video) {
     console.log('加载视频:', video)
-    // 添加时间戳避免缓存
+    // 添加��间戳��免缓存
     const timestamp = new Date().getTime()
     const videoUrl = `${video}?t=${timestamp}`
     
@@ -148,7 +152,7 @@ Page({
       }
 
       this.setData({
-        description: '录音完成，正在处��...'
+        description: '录音完成，正在处理...'
       })
 
       this.handleQuery(res.result)
@@ -202,7 +206,7 @@ Page({
         conversation_id: this.data.conversation_id,
         bot_id: '7450286572244762675',
         user: 'miniprogram_user',
-        query: `请分析这句话的意图，只返回一个关键词（椅子/血压/旅游/茶）："${query}"`,
+        query: `请分析这句话的意图，只返回一个关键词（护理/椅子/血压/旅游/茶）："${query}"`,
         stream: false
       },
       success: (res) => {
@@ -226,7 +230,7 @@ Page({
             } else {
               console.log('未找到服务配置，关键词:', keyword)
               this.setData({
-                description: '抱歉，我没有找到相关的服务信息',
+                description: '抱���，我没有找到相关的服务信息',
                 inputText: '',
                 conversation_id: res.data.conversation_id
               })
