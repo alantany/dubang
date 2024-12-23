@@ -88,12 +88,11 @@
   margin-top: 20rpx;
 }
 
-/* 高亮文本样式 */
-.highlight {
+/* 服务名称样式 */
+.service-name {
   font-weight: bold;
   color: #007AFF;
-  display: inline-block;
-  padding: 0 4rpx;
+  display: inline;
 }
 
 /* 普通文案的样式 */
