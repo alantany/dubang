@@ -14,7 +14,7 @@ Page({
       },
       '血压': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒，守护您的健康。'
+        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒���守护您的健康。'
       },
       '旅游': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/travel.mp4',
@@ -124,7 +124,7 @@ Page({
       })
     }
 
-    // ���听录音结束事件
+    // 监听录音结束事件
     this.recorderManager.onStop = (res) => {
       console.log('录音结束', res)
       this.setData({
@@ -206,13 +206,19 @@ Page({
 
             const service = this.data.serviceConfig[keyword]
             if (service) {
+              console.log('找到服务配置:', service)
+              // 先设置视频路径
               this.loadVideo(service.video)
-              this.setData({
-                description: service.description,
-                inputText: '',
-                conversation_id: res.data.conversation_id
-              })
+              // 然后更新描述文本
+              setTimeout(() => {
+                this.setData({
+                  description: service.description,
+                  inputText: '',
+                  conversation_id: res.data.conversation_id
+                })
+              }, 100)
             } else {
+              console.log('未找到服务配置，关键词:', keyword)
               this.setData({
                 description: '抱歉，我没有找到相关的服务信息',
                 inputText: '',
