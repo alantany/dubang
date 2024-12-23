@@ -9,6 +9,9 @@
     show-play-btn="{{true}}"
     object-fit="contain"
     binderror="handleVideoError"
+    bindplay="handleVideoPlay"
+    bindpause="handleVideoPause"
+    bindended="handleVideoEnded"
   ></video>
   <view class="description">
     <text class="{{isWelcomeText ? 'welcome-text' : 'normal-text'}}">{{description}}</text>

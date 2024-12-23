@@ -17,6 +17,18 @@ Component({
     isWelcomeText: false
   },
 
+  observers: {
+    'videoPath': function(newPath) {
+      console.log('视频路径已更新:', newPath)
+    },
+    'description': function(description) {
+      // 检查是否是欢迎文案
+      this.setData({
+        isWelcomeText: description.startsWith('欢迎使用都邦健康')
+      });
+    }
+  },
+
   methods: {
     handleVideoError(e) {
       console.error('视频错误:', e.detail)
@@ -53,35 +65,6 @@ Component({
       this.setData({
         isPlaying: false
       })
-    }
-  },
-
-  lifetimes: {
-    attached() {
-      // 组件创建时的初始化逻辑
-      console.log('视频组件已创建，路径:', this.properties.videoPath)
-    },
-
-    detached() {
-      // 组件销毁时的清理逻辑
-    }
-  },
-
-  pageLifetimes: {
-    show() {
-      // 页面显示时的逻辑
-    },
-    hide() {
-      // 页面隐藏时的逻辑
-    }
-  },
-
-  observers: {
-    'description': function(description) {
-      // 检查是否是欢迎文案
-      this.setData({
-        isWelcomeText: description.startsWith('欢迎使用都邦健康')
-      });
     }
   }
 }) 

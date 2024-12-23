@@ -14,7 +14,7 @@ Page({
       },
       '血压': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒���守护您的健康。'
+        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒守护您的健康。'
       },
       '旅游': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/travel.mp4',
@@ -43,7 +43,7 @@ Page({
           this.setData({ hasRecordAuth: true })
           this.initRecorder()
         } else {
-          // 主动请求授权
+          // 主��请求授权
           this.requestRecordAuth()
         }
       }
@@ -82,14 +82,21 @@ Page({
   },
 
   loadVideo(video) {
-    console.log('加载视频:', video)
+    console.log('开始加载视频:', video)
+    // 添加时间戳避免缓存
+    const timestamp = new Date().getTime()
+    const videoUrl = `${video}?t=${timestamp}`
+    console.log('添加时间戳后的视频URL:', videoUrl)
     this.setData({
-      currentVideo: video
+      currentVideo: videoUrl
+    }, () => {
+      console.log('视频URL已更新为:', this.data.currentVideo)
     })
   },
 
   handleVideoError(e) {
     console.error('视频播放错误:', e.detail)
+    console.error('当前视频路径:', this.data.currentVideo)
     wx.showToast({
       title: '视频加载失败',
       icon: 'error'
@@ -207,16 +214,26 @@ Page({
             const service = this.data.serviceConfig[keyword]
             if (service) {
               console.log('找到服务配置:', service)
-              // 先设置视频路径
-              this.loadVideo(service.video)
-              // 然后更新描述文本
-              setTimeout(() => {
-                this.setData({
-                  description: service.description,
-                  inputText: '',
-                  conversation_id: res.data.conversation_id
-                })
-              }, 100)
+              console.log('准备加载视频:', service.video)
+              
+              // 先清除当前视频
+              this.setData({ currentVideo: '' }, () => {
+                console.log('已清除当前视频')
+                // 延迟100ms后设置新视频
+                setTimeout(() => {
+                  this.loadVideo(service.video)
+                  console.log('已请求加载新视频')
+                  
+                  // 更新描述文本
+                  this.setData({
+                    description: service.description,
+                    inputText: '',
+                    conversation_id: res.data.conversation_id
+                  }, () => {
+                    console.log('描述文本已更新')
+                  })
+                }, 100)
+              })
             } else {
               console.log('未找到服务配置，关键词:', keyword)
               this.setData({
