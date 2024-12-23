@@ -71,21 +71,15 @@ Page({
         description: '录音完成，正在识别...'
       })
 
-      // 调用微信云函数进行语音识别
-      wx.cloud.callFunction({
-        name: 'speechToText',
-        data: {
-          audioFile: tempFilePath
-        },
-        success: res => {
+      // 使用微信同声传译插件
+      const plugin = requirePlugin("WechatSI")
+      plugin.recognize({
+        audioFile: tempFilePath,
+        success: (res) => {
           console.log('语音识别结果:', res.result)
-          if (res.result && res.result.text) {
-            this.handleQuery(res.result.text)
-          } else {
-            this.handleError('未能识别语音内容')
-          }
+          this.handleQuery(res.result)
         },
-        fail: err => {
+        fail: (err) => {
           console.error('语音识别失败:', err)
           this.handleError('语音识别失败')
         }
