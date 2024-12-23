@@ -6,7 +6,7 @@ Page({
     buttonText: '',
     inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-    description: '欢迎使用都邦健康，请输入或按住按钮说话',
+    description: '欢迎来到都邦关爱，请说出您的需求,比如：请提供旅游方面的信息',
     lastRecognitionText: '',
     serviceConfig: {
       '椅子': {

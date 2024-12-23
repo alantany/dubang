@@ -1,7 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20rpx;
+  box-sizing: border-box;
+  padding-bottom: 200rpx;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
 <view class="container">
+  <text class="welcome-text">{{description}}</text>
   <display-area 
     videoPath="{{currentVideo}}" 
-    description="{{description}}"
+    description=""
   ></display-area>
   
   <view class="voice-button-area">
