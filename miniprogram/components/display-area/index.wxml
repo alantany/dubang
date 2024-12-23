@@ -12,6 +12,16 @@
     binderror="handleVideoError"
   ></video>
   <view class="description">
-    <text class="{{isWelcomeText ? 'welcome-text' : 'normal-text'}}">{{description}}</text>
+    <block wx:if="{{isWelcomeText}}">
+      <view class="welcome-text">
+        <text>欢迎使用都邦健康</text>
+        <text>我们现在提供</text>
+        <text>护理、血压仪、椅子、茶道、旅游\n等方面服务</text>
+        <text>您可以说:介绍一些旅游方面的服务</text>
+      </view>
+    </block>
+    <block wx:else>
+      <text class="normal-text">{{description}}</text>
+    </block>
   </view>
 </view> 

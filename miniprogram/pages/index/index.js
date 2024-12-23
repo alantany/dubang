@@ -6,28 +6,28 @@ Page({
     buttonText: '',
     inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-    description: '欢迎使用都邦健康\n\n我们现在提供\n\n护理、血压仪、椅子、茶道、旅游\n\n等方面服务\n\n比如,您可以说:介绍一些旅游方面的服务',
+    description: '欢迎使用都邦健康\n\n我们现在提供\n\n老人护理、血压仪、椅子、茶道、旅游\n\n等方面服务\n\n您可以说:介绍一些旅游方面的服务',
     recognizedText: '',
     serviceConfig: {
       '护理': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/care.mp4',
-        description: '我们提供专业的老年人关怀服务，由经验丰富的护理人员提供一对一照料。包括生活起居照料、健康监测、陪诊就医、心理关怀等全方位服务，让老年人感受到家人般的温暖和关爱。'
+        description: '都邦提供的专业的老年人关怀服务，由经验丰富的护理人员提供一对一照料。包括生活起居照料、健康监测、陪诊就医、心理关怀等全方位服务，让老年人感受到家人般的温暖和关爱。'
       },
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
-        description: '人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的���背支撑，让您在看电视、阅读时保持正确坐姿，提升生活品质。'
+        description: '都邦提供的人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的靠背支撑，让您在看电视、阅读时保持正确坐姿，提升生活品质。'
       },
       '血压': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-        description: '智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒，守护您的健康。'
+        description: '都邦提供的智能血压计配备大屏显示，操作简单。支持数据记录和分析，帮助老年人随时掌握血压状况，预防心脑血管疾病。内置预警提醒，守护您的健康。'
       },
       '旅游': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/travel.mp4',
-        description: '精心定制的老年旅游套餐，配备专业医护人员陪同。行程节奏轻松，住宿舒适，让您在游览美景的同时，放松身心，增进健康，结交新朋友。'
+        description: '都邦精心定制的老年旅游套餐，配备专业医护人员陪同。行程节奏轻松，住宿舒适，让您在游览美景的同时，放松身心，增进健康，结交新朋友。'
       },
       '茶': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/green_tea.mp4',
-        description: '精选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
+        description: '都邦精选优质茶叶，富含多种有益成分。适合老年人饮用，可以提神醒脑，帮助消化，改善睡眠。配合养生茶具套装，让品茶成为健康享受。'
       }
     },
     conversation_id: '123123',
