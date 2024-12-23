@@ -6,6 +6,7 @@
   ></display-area>
 
   <view class="voice-button-area">
+    <text wx:if="{{recognizedText}}" class="recognized-text">{{recognizedText}}</text>
     <view class="test-button" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
       <view class="inner-circle"></view>
       <text class="button-text">按住说话</text>

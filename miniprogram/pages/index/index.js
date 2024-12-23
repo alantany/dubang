@@ -7,6 +7,7 @@ Page({
     inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
     description: '欢迎使用都邦健康\n\n我们现在提供\n\n护理、血压仪、椅子、茶道、旅游\n\n等方面服务\n\n比如,您可以说:介绍一些旅游方面的服务',
+    recognizedText: '',
     serviceConfig: {
       '护理': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/care.mp4',
@@ -14,7 +15,7 @@ Page({
       },
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
-        description: '人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的靠背支撑，让您在���电视、阅读时保持正确坐姿，提升生活品质。'
+        description: '人体工学椅采用科学设计，能有效缓解老年人久坐腰酸背痛，预防脊椎问题。特殊的���背支撑，让您在看电视、阅读时保持正确坐姿，提升生活品质。'
       },
       '血压': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
@@ -37,7 +38,7 @@ Page({
   onLoad() {
     const pages = getCurrentPages()
     const currentPage = pages[pages.length - 1]
-    console.log('当������面路径:', currentPage.route)
+    console.log('当页面面路径:', currentPage.route)
     console.log('当前视频:', this.data.currentVideo)
     
     // 检查录音授权
@@ -123,7 +124,7 @@ Page({
       console.log("当前识别结果:", res.result)
       if (res.result) {
         this.setData({
-          description: `正在识别: ${res.result}`
+          recognizedText: res.result
         })
       }
     }
@@ -133,7 +134,8 @@ Page({
       console.log('录音开始', res)
       this.setData({
         description: '正在录音，请说话...',
-        isRecording: true
+        isRecording: true,
+        recognizedText: ''
       })
     }
 
@@ -146,13 +148,15 @@ Page({
 
       if (!res.result) {
         this.setData({
-          description: '未能识别，请重试'
+          description: '未能识别，请重试',
+          recognizedText: ''
         })
         return
       }
 
       this.setData({
-        description: '录音完成，正在处理...'
+        description: '录音完成，正在处理...',
+        recognizedText: res.result
       })
 
       this.handleQuery(res.result)
@@ -230,7 +234,7 @@ Page({
             } else {
               console.log('未找到服务配置，关键词:', keyword)
               this.setData({
-                description: '抱���，我没有找到相关的服务信息',
+                description: '抱歉，我没有找到相关的服务信息',
                 inputText: '',
                 conversation_id: res.data.conversation_id
               })
