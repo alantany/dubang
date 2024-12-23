@@ -54,15 +54,14 @@
 }
 
 .description-text {
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
   font-size: 32rpx;
   font-weight: bold;
   color: #333;
-  padding: 40rpx;
-  margin-top: 20rpx;
-  line-height: 1.5;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  line-height: 1.5;
 } 
