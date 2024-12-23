@@ -16,7 +16,7 @@
       <view class="welcome-text">
         <text>欢迎使用都邦健康</text>
         <text>我们现在提供</text>
-        <text>护理、血压仪、椅子、茶道、旅游\n等方面服务</text>
+        <text><text class="highlight">护理</text>、<text class="highlight">血压仪</text>、<text class="highlight">椅子</text>、<text class="highlight">茶道</text>、<text class="highlight">旅游</text>\n等方面服务</text>
         <text>您可以说:介绍一些旅游方面的服务</text>
       </view>
     </block>

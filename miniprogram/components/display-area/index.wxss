@@ -88,6 +88,14 @@
   margin-top: 20rpx;
 }
 
+/* 高亮文本样式 */
+.highlight {
+  font-weight: bold;
+  color: #007AFF;
+  display: inline-block;
+  padding: 0 4rpx;
+}
+
 /* 普通文案的样式 */
 .normal-text {
   font-size: 32rpx;
