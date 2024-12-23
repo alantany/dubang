@@ -1,31 +1,20 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 20rpx;
-  box-sizing: border-box;
-  padding-bottom: 200rpx;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-}
-
 <view class="container">
-  <text class="welcome-text">{{description}}</text>
   <display-area 
     videoPath="{{currentVideo}}" 
-    description=""
+    description="{{description}}"
   ></display-area>
   
+  <view class="description-text">{{description}}</view>
+  
+  <view class="input-area">
+    <input class="text-input" placeholder="请输入您想了解的内容" value="{{inputText}}" bindinput="handleInput" />
+    <button class="send-button" bindtap="handleSend">发送</button>
+  </view>
+
   <view class="voice-button-area">
-    <view class="recognition-text" wx:if="{{lastRecognitionText}}">
-      您说的是：{{lastRecognitionText}}
-    </view>
-    <view 
-      class="test-button"
-      bindtouchstart="handleTouchStart" 
-      bindtouchend="handleTouchEnd"
-    >
+    <view class="test-button" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
       <view class="inner-circle"></view>
-      <text class="button-text">{{buttonText || '按住说话'}}</text>
+      <text class="button-text">按住说话</text>
     </view>
   </view>
 </view>

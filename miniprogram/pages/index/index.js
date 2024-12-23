@@ -6,8 +6,7 @@ Page({
     buttonText: '',
     inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-    description: '欢迎来到都邦关爱，请说出您的需求,比如：请提供旅游方面的信息',
-    lastRecognitionText: '',
+    description: '欢迎使用都邦健康，请输入或按住按钮说话',
     serviceConfig: {
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',
@@ -177,8 +176,7 @@ Page({
 
   handleQuery(query) {
     this.setData({
-      description: '正在思考中...',
-      lastRecognitionText: query
+      description: '正在思考中...'
     })
 
     wx.request({
@@ -211,11 +209,13 @@ Page({
               this.loadVideo(service.video)
               this.setData({
                 description: service.description,
+                inputText: '',
                 conversation_id: res.data.conversation_id
               })
             } else {
               this.setData({
                 description: '抱歉，我没有找到相关的服务信息',
+                inputText: '',
                 conversation_id: res.data.conversation_id
               })
             }
