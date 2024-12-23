@@ -26,7 +26,8 @@ Page({
       }
     },
     conversation_id: '123123',
-    hasRecordAuth: false
+    hasRecordAuth: false,
+    isRecording: false
   },
 
   onLoad() {
@@ -41,6 +42,9 @@ Page({
         if (res.authSetting['scope.record']) {
           this.setData({ hasRecordAuth: true })
           this.initRecorder()
+        } else {
+          // 主动请求授权
+          this.requestRecordAuth()
         }
       }
     })
@@ -51,13 +55,15 @@ Page({
     wx.authorize({
       scope: 'scope.record',
       success: () => {
+        console.log('录音授权成功')
         this.setData({ hasRecordAuth: true })
         this.initRecorder()
       },
       fail: () => {
+        console.log('录音授权失败')
         wx.showModal({
-          title: '提示',
-          content: '需要您的录音权限，是否去设置？',
+          title: '需要录音权限',
+          content: '请允许使用麦克风，以便使用语音功能',
           success: (res) => {
             if (res.confirm) {
               wx.openSetting({
@@ -102,7 +108,6 @@ Page({
     // 监听识别结果
     this.recorderManager.onRecognize = (res) => {
       console.log("当前识别结果:", res.result)
-      // 显示实时识别结果
       if (res.result) {
         this.setData({
           description: `正在识别: ${res.result}`
@@ -114,17 +119,18 @@ Page({
     this.recorderManager.onStart = (res) => {
       console.log('录音开始', res)
       this.setData({
-        description: '正在录音，请说话...'
+        description: '正在录音，请说话...',
+        isRecording: true
       })
     }
 
     // 监听录音结束事件
     this.recorderManager.onStop = (res) => {
       console.log('录音结束', res)
-      console.log('录音文件:', res.tempFilePath)
-      console.log('识别结果:', res.result)
-      
-      // 如果没有识别结果，尝试重新识别
+      this.setData({
+        isRecording: false
+      })
+
       if (!res.result) {
         this.setData({
           description: '未能识别，请重试'
@@ -142,7 +148,10 @@ Page({
     // 监听录音错误事件
     this.recorderManager.onError = (res) => {
       console.error('录音错误:', res)
-      // 根据错误码处理不同情况
+      this.setData({
+        isRecording: false
+      })
+
       let errorMsg = '录音出错'
       if (res.retcode === -30004) {
         errorMsg = '未能识别语音，请重试'
@@ -151,6 +160,10 @@ Page({
       } else if (res.retcode === -30002) {
         errorMsg = '录音失败，请重试'
       }
+      
+      this.setData({
+        description: errorMsg
+      })
       this.handleError(errorMsg)
     }
   },
@@ -240,28 +253,28 @@ Page({
       return
     }
 
+    if (this.data.isRecording) {
+      return
+    }
+
     this.setData({
-      buttonText: '松开结束'
-    })
-    wx.showToast({
-      title: '请说话...',
-      icon: 'none',
-      duration: 60000
+      buttonText: '松开结束',
+      description: '准备录音...'
     })
 
-    // 开始录音识别，增加参数配置
+    // 开始录音识别
     this.recorderManager.start({
       duration: 30000,
       lang: "zh_CN",
-      minVolume: 0.1,
-      sampleRate: 16000
+      minVolume: 0.1
     })
   },
 
   handleTouchEnd() {
-    if (this.recorderManager) {
+    if (this.recorderManager && this.data.isRecording) {
       this.setData({
-        buttonText: ''
+        buttonText: '',
+        description: '正在处理...'
       })
       wx.hideToast()
       this.recorderManager.stop()
