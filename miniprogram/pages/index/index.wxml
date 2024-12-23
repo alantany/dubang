@@ -3,9 +3,7 @@
     videoPath="{{currentVideo}}" 
     description="{{description}}"
   ></display-area>
-  
-  <view class="description-text">{{description}}</view>
-  
+
   <view class="input-area">
     <input class="text-input" placeholder="请输入您想了解的内容" value="{{inputText}}" bindinput="handleInput" />
     <button class="send-button" bindtap="handleSend">发送</button>

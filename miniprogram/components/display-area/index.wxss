@@ -7,6 +7,13 @@
   box-sizing: border-box;
 }
 
+.video-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .video {
   width: 100vw;
   height: calc(100vw * 9 / 16);
@@ -16,11 +23,12 @@
 }
 
 .description {
-  font-size: 28rpx;
-  color: #333;
-  text-align: center;
-  padding: 20rpx;
   width: 100%;
+  padding: 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.5;
   box-sizing: border-box;
 }
 

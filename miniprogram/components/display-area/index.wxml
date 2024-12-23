@@ -1,4 +1,4 @@
-<view class="container">
+<view class="video-container">
   <video 
     class="video" 
     src="{{videoPath}}"
@@ -7,16 +7,7 @@
     controls="{{true}}"
     show-center-play-btn="{{true}}"
     show-play-btn="{{true}}"
-    enable-progress-gesture="{{true}}"
     object-fit="contain"
-    binderror="handleVideoError"
-    bindplay="handleVideoPlay"
-    bindpause="handleVideoPause"
-    bindended="handleVideoEnded"
-    initial-time="0"
-    direction="0"
-    show-mute-btn="{{true}}"
-    title="健康服务视频"
   ></video>
   <view class="description">{{description}}</view>
 </view> 
