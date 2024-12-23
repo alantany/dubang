@@ -25,13 +25,33 @@
 .description {
   width: 100%;
   padding: 40rpx 20rpx;
-  font-size: 48rpx;
+  font-size: 28rpx;
   font-weight: bold;
-  color: #333;
-  line-height: 2;
   text-align: center;
   box-sizing: border-box;
-  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.text-line1 {
+  color: #07c160;
+}
+
+.text-line2 {
+  color: #333333;
+}
+
+.text-line3 {
+  color: #1485ee;
+}
+
+.text-line4 {
+  color: #333333;
+}
+
+.text-line5 {
+  color: #ff9500;
 }
 
 .debug-info {

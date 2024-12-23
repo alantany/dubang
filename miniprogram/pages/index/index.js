@@ -6,7 +6,7 @@ Page({
     buttonText: '',
     inputText: '',
     currentVideo: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/blood_pressure.mp4',
-    description: '欢迎使用都邦健康\n\n您可以提出您的需求\n\n我们现在有护理、血压仪、椅子、茶道、旅游等方面服务\n\n请说出您的需求',
+    description: '欢迎使用都邦健康\n\n我们现在提供\n\n护理、血压仪、椅子、茶道、旅游\n\n等方面服务\n\n比如,您可以说:介绍一些旅游方面的服务',
     serviceConfig: {
       '椅子': {
         video: 'cloud://dubang-care-9gjaqmi865fbdafa.6475-dubang-care-9gjaqmi865fbdafa-1333640242/video/chair.mp4',

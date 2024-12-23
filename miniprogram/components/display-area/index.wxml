@@ -9,5 +9,11 @@
     show-play-btn="{{true}}"
     object-fit="contain"
   ></video>
-  <view class="description">{{description}}</view>
+  <view class="description">
+    <text class="text-line1">欢迎使用都邦健康</text>
+    <text class="text-line2">我们现在提供</text>
+    <text class="text-line3">护理、血压仪、椅子、茶道、旅游</text>
+    <text class="text-line4">等方面服务</text>
+    <text class="text-line5">比如,您可以说:介绍一些旅游方面的服务</text>
+  </view>
 </view> 
