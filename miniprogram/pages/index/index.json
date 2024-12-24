@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "都邦健康",
+  "navigationBarTitleText": "都邦关爱 关爱老人",
   "usingComponents": {
     "voice-button": "../../components/voice-button/index",
     "display-area": "../../components/display-area/index"
